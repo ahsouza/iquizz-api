@@ -1,0 +1,4 @@
+/node_modules
+/config/pusher.js
+/sessions
+package-lock.json

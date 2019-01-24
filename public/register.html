@@ -1,0 +1,36 @@
+
+  
+  <ul class='menu'>
+    <li><a href='/dash'>Home</a></li>
+    <li><a href='/register'>Cadastro</a></li>
+    <li><a href='/categorie'>Categorias</a></li>
+    <li><a href='/users/:id'>Profile</a></li>
+    <li><a href='/users/:id'>Config</a></li>
+    <li><a href='/logout'>Sair </a></li>
+  </ul>
+
+  <form action= '/register' method= 'POST'>
+
+    <label for = 'user_firstName'> Nome: </label>
+    <input type = 'text' name = 'firstName' id = 'user_firstName' />
+
+    <label for = 'user_lastName'> Sobrenome: </label>
+    <input type = 'text' name = 'lastName' id = 'user_lastName' />
+
+    <label for = 'user_email'> Email: </label>
+    <input type = 'text' name = 'email' id = 'user_email' />
+
+    <label for = 'user_username'> Username: @</label>
+    <input type = 'text' name = 'username' id = 'user_username' />
+
+    <label for = 'user_password'> Senha: </label>
+    <input type = 'password' name = 'password' id = 'user_password' />
+
+    <label for = "user_conf_password"> Confirmação de senha: </label>
+    <input type = 'password' name='conf_password' id='user_conf_password'  />
+    
+
+    
+    <input type = 'submit' value = 'Salvar' /> 
+  </form>
+

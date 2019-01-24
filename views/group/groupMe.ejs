@@ -1,0 +1,924 @@
+<% include ../header.ejs %>
+<br><br>
+<% if(typeof(account.session) == "undefined"){ %>
+  <ul class='menu'>
+        <li><a href='/login'>login</a></li>
+        <li><a href='/account/new'>criar conta</a></li>
+  </ul>
+<% }else{ %>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.5;
+  font-family: 'Lato';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+p {
+  font-weight: 300;
+  margin: 0 0 2.4rem 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 400;
+}
+/**
+ * Material Modal CSS
+ */
+.modal {
+  will-change: visibility, opacity;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: $modal-delay;
+}
+.modal--active {
+  visibility: visible;
+  opacity: 1;
+}
+.modal--align-top {
+  align-items: flex-start;
+}
+.modal__bg {
+  background: transparent;
+}
+.modal__dialog {
+  max-width: 600px;
+  padding: 1.2rem;
+}
+.modal__content {
+  will-change: transform, opacity;
+  position: relative;
+  padding: 2.4rem;
+  background: #ffebee;
+  background-clip: padding-box;
+  box-shadow: 0 12px 15px 0 rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.modal__content--active {
+  opacity: 1;
+}
+.modal__close {
+  z-index: 1100;
+  cursor: pointer;
+}
+.modal__trigger {
+  position: relative;
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  color: rgba(0,0,0,0.7);
+  line-height: 1;
+  cursor: pointer;
+  background: #ffebee;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.modal__trigger--active {
+  z-index: 10;
+}
+.modal__trigger:hover {
+  background: #e5d3d6;
+}
+#modal__temp {
+  will-change: transform, opacity;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffebee;
+  -webkit-transform: none;
+          transform: none;
+  opacity: 1;
+  transition: opacity 0.1s ease-out, -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/**
+ * Demo specific CSS
+ */
+body {
+  height: 100vh;
+}
+img {
+  max-width: 100%;
+}
+.demo-btns header {
+  padding: 7vh 10vw;
+  background: #ffebee;
+  display: flex;
+  align-items: center;
+}
+.demo-btns header h1 {
+  margin: 0;
+  color: rgba(0,0,0,0.54);
+  font-weight: 300;
+}
+.demo-btns .info {
+  background: #f44336;
+  padding: 3vh 10vw;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+}
+.demo-btns p {
+  text-align: center;
+  color: #fff;
+}
+.demo-btns .link {
+  font-size: 20px;
+}
+.demo-btns .modal__trigger {
+  margin-right: 3px;
+}
+@media (max-width: 640px) {
+  .demo-btns .modal__trigger {
+    margin-bottom: 0.8rem;
+  }
+}
+.demo-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.2rem;
+  padding: 0.6rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.demo-close svg {
+  width: 24px;
+  fill: #fff;
+  pointer-events: none;
+  vertical-align: top;
+}
+.demo-close:hover {
+  background: rgba(0,0,0,0.6);
+}
+.logo {
+  position: fixed;
+  bottom: 3vh;
+  right: 3vw;
+  z-index: 2;
+}
+.logo img {
+  width: 45px;
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.logo img:hover {
+  -webkit-transform: rotate(180deg) scale(1.1);
+          transform: rotate(180deg) scale(1.1);
+}
+
+</style>
+
+  
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--4-col">
+
+        <!-- Square card -->
+        <style>
+        a { text-decoration: none}
+        .demo-card-square.mdl-card {
+          width: 320px;
+          height: 320px;
+        }
+        .demo-card-square > .mdl-card__title {
+          color: #fff;
+          background:
+            url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+        }
+        </style>
+
+        <div class="demo-card-square mdl-card mdl-shadow--2dp animated fadeInLeft">
+          <div class="mdl-card__title mdl-card--expand">
+            <h2 class="mdl-card__title-text"><%= account.group.name %></h2>
+            <span style="font-size: 24px; color: #ffeb3b">
+              <i class="fas fa-trophy"></i>
+            </span>
+          </div>
+          <div class="mdl-card__supporting-text">
+
+          <span style="font-size: 16px; ">
+            <i class="fas fa-at"></i><b><%= account.group.nickname %></b>
+          </span>
+
+          <br/><br/>
+          <span>
+            <i class="material-icons">
+              location_city
+            </i>
+            <small>Serra/ES</small>
+          </span>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <span>
+            <div class="show-modal material-icons mdl-badge mdl-badge--overlap" data-badge="<%= account.members.length %>">group</div>
+          </span>
+
+        <% if ((account.group.admin) != (account.session.username)) { %>
+
+          <br />
+          <div>
+            <% if (account.group.social.facebook) { %>
+              <span style="font-size: 28px; color: #005cb2">
+                <i class="fab fa-facebook-square"></i>
+              </span>
+            <% } %>
+
+            <% if (account.group.social.linkedin) { %>
+              <span style="font-size: 28px; color: #2979ff">
+                <i class="fab fa-linkedin"></i>
+              </span>
+            <% } %>
+
+            <% if (account.group.social.github) { %>
+              <span style="font-size: 28px;">
+                <i class="fab fa-github"></i>
+              </span>
+            <% } %>
+
+            <% if (account.group.social.telegram) { %>
+              <span style="font-size: 28px; color: #75a7ff;">
+                <i class="fab fa-telegram-plane"></i>
+              </span>
+            <% } %>
+
+            <% if (account.group.social.twitter) { %>
+              <span style="font-size: 28px; color:#80d8ff;">
+                <i class="fab fa-twitter"></i>
+              </span>
+            <% } %>
+
+            <% if (account.group.social.youtube) { %>
+              <span style="font-size: 28px; color:#c30000">
+                <i class="fab fa-youtube"></i>
+              </span>
+            <% } %>
+
+          </div>
+
+        <br />
+          <div>
+            <span style="font-size: 18px;">
+              <i class="fas fa-award"></i> &nbsp;
+              <%= account.group.admin %>
+            </span> 
+          </div>
+        <%} else { %>
+
+        <% } %>
+
+<%= account.group.points %>
+<%= account.group.stars %>
+<%= account.group.location.addressCity %>
+<%= account.group.location.addressState %>
+<%= account.group.site %>
+<%= account.group.social.facebook %>
+<%= account.group.social.youtube %>
+<%= account.group.social.linkedin %>
+<%= account.group.social.github %>
+<%= account.group.social.twitter %>
+<%= account.group.social.telegram %>
+
+
+
+
+
+
+          </div>
+
+          <% if((account.group.admin) == (account.session.username)) { %>
+            <div class="mdl-card__actions mdl-card--border">
+              <a href= "/api/message/groups/:id" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+                Excluir Grupo
+              </a>
+            </div>
+          <% } else { %>
+              
+
+
+
+
+
+<% let result = account.members.find( member => member.username === account.session.username && member.nickname === account.group.nickname); %>
+
+  <% if(result) {%>
+    <div class="mdl-card__actions mdl-card--border">
+      <a href= "/api/message/groups/:id" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        Sair
+      </a>
+    </div>
+  <% } else { %>
+    <div class="mdl-card__actions mdl-card--border">
+      <a href= "/api/message/groups/:id" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        Entrar
+      </a>
+    </div>
+  <% } %>
+
+
+
+
+
+
+
+
+
+          <% } %>
+
+
+
+
+
+
+        </div>
+
+  </div>
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--4-col">
+
+
+
+
+
+<style>
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+
+.recipe-card {
+  background: #fff;
+  margin: 4em auto;
+  width: 90%;
+  max-width: 496px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.recipe-card aside {
+  position: relative;
+}
+.recipe-card aside img {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.recipe-card aside .button {
+  background: #57abf2;
+  display: inline-block;
+  position: absolute;
+  top: 80%;
+  right: 3%;
+  width: 4.0625em;
+  height: 4.0625em;
+  border-radius: 4.0625em;
+  line-height: 4.0625em;
+  text-align: center;
+}
+.recipe-card aside .button .icon {
+  vertical-align: middle;
+}
+.recipe-card article {
+  padding: 1.25em 1.5em;
+}
+.recipe-card article ul {
+  list-style: none;
+  margin: 0.5em 0 0;
+  padding: 0;
+}
+.recipe-card article ul li {
+  display: inline-block;
+  margin-left: 1em;
+  line-height: 1em;
+}
+.recipe-card article ul li:first-child {
+  margin-left: 0;
+}
+.recipe-card article ul li .icon {
+  vertical-align: bottom;
+}
+.recipe-card article ul li span:nth-of-type(2) {
+  margin-left: 0.5em;
+  font-size: 0.8em;
+  font-weight: 300;
+  vertical-align: middle;
+  color: #838689;
+}
+.recipe-card article h2, .recipe-card article h3 {
+  margin: 0;
+  font-weight: 300;
+}
+.recipe-card article h2 {
+  font-size: 1.75em;
+  color: #222222;
+}
+.recipe-card article h3 {
+  font-size: 0.9375em;
+  color: #838689;
+}
+.recipe-card article p {
+  margin: 1.25em 0;
+  font-size: 0.8125em;
+  font-weight: 400;
+  color: #222222;
+}
+.recipe-card article p span {
+  font-weight: 700;
+  color: #000000;
+}
+.recipe-card article .ingredients {
+  margin: 2em 0 0.5em;
+}
+.recipe-card .icon {
+  display: inline;
+  display: inline-block;
+  background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/recipe-card-icons.svg);
+  background-repeat: no-repeat;
+}
+.recipe-card .icon-calories, .recipe-card .icon-calories\:regular {
+  background-position: 0 0;
+  width: 16px;
+  height: 19px;
+}
+.recipe-card .icon-clock, .recipe-card .icon-clock\:regular {
+  background-position: 0 -19px;
+  width: 20px;
+  height: 20px;
+}
+.recipe-card .icon-level, .recipe-card .icon-level\:regular {
+  background-position: 0 -39px;
+  width: 16px;
+  height: 19px;
+}
+.recipe-card .icon-play, .recipe-card .icon-play\:regular {
+  background-position: 0 -58px;
+  width: 21px;
+  height: 26px;
+}
+.recipe-card .icon-users, .recipe-card .icon-users\:regular {
+  background-position: 0 -84px;
+  width: 18px;
+  height: 18px;
+}
+
+
+.scroll-members {
+  overflow:scroll;
+  height:360px;
+  overflow:auto
+}
+
+
+.scroll-members::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  border-radius: 10px;
+  background-color: #F5F5F5;
+}
+
+.scroll-members::-webkit-scrollbar {
+  width: 4px;
+  background-color: #F5F5F5;
+}
+
+.scroll-members:hover::-webkit-scrollbar {
+  width: 8px;
+  background-color: #F5F5F5;
+}
+
+.scroll-members::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+  background-color: #cecece;
+}
+
+
+</style>
+
+
+
+
+
+
+
+<!-- Three Line List with secondary info and action -->
+<style>
+.demo-list-three {
+  width: 650px;
+}
+</style>
+
+
+<form action="/api/message/contacts" method = "POST">
+ <% if((account.members) != "undefined") { %>
+
+    
+
+
+
+    <ul class="demo-list-three mdl-list animated fadeInRight scroll-members">
+    <% for (account.member of account.members) {%> 
+
+      
+
+        <% if ((account.member.nickname) == (account.group.nickname)) { %>
+
+
+          <% if ((account.member.username) != (account.session.username) ) { %>
+
+
+            <% let result = account.friends.find( friend => friend.from === account.member.username && friend.to === account.session.username || friend.from === account.session.username && friend.to === account.member.username); %>
+
+                  <% if(result) { %>
+
+
+
+                  <li class="mdl-list__item mdl-list__item--three-line">
+                  <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-avatar">person</i>
+                    <span><%= account.member.username %></span>
+                    <span class="mdl-list__item-text-body">
+                      <br/>
+                      <b>disciplina: </b>Matemática
+                    </span>
+                  </span>
+                    <span style="font-size: 34px; color: #ffeb3b">
+                      <i class="fas fa-medal animated fadeIn delay-2s"></i>
+                    </span> 
+                  <span class="mdl-list__item-secondary-content">
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab animated fadeInUp delay-1s" style="background-color: #00e676; color: #fff;">
+                          <i class="material-icons">how_to_reg</i>
+                        </button>
+                  </span>
+                </li>
+
+                  <% } else { %>
+
+
+
+                  <li class="mdl-list__item mdl-list__item--three-line">
+                  <span class="mdl-list__item-primary-content">
+                    <i class="material-icons mdl-list__item-avatar">person</i>
+                    <span><%= account.member.username %></span>
+                    <span class="mdl-list__item-text-body">
+                      <br/>
+                      <b>disciplina: </b>Matemática
+                    </span>
+                  </span>
+                  <span class="mdl-list__item-secondary-content animated fadeInUp delay-1s">
+                    <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" value="" name="solicitationFriendship" type="submit"      style="background-color: #40c4ff; color: #fff;">
+                          <i class="material-icons">group_add</i>
+                        </button>
+                  </span>
+                </li>
+
+                    <br/>
+                  <% } %>
+
+          <% } %>
+
+        <% } %>
+
+    <% } %>
+    </ul>
+
+<% } %>
+  
+</ul>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  <h2>H3lloWorld!!</h2>
+
+
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+      
+
+  </div>
+
+
+<% } %>
+
+
+
+  <dialog class="mdl-dialog">
+    <div class="mdl-dialog__content">
+      <p>
+        Allow this site to collect usage data to improve your experience?
+      </p>
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+      <button type="button" class="mdl-button">Agree</button>
+      <button type="button" class="mdl-button close">Disagree</button>
+    </div>
+  </dialog>
+  <script>
+    var dialog = document.querySelector('dialog');
+    var showModalButton = document.querySelector('.show-modal');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showModalButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+  </script>
+
+
+
+
+
+
+
+    
+
+
+
+
+
+         
+
+
+<div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<script>
+(function() {
+  'use strict';
+  var snackbarContainer = document.querySelector('#demo-snackbar-example');
+  var showSnackbarButton = document.querySelector('#demo-show-snackbar');
+  var handler = function(event) {
+    showSnackbarButton.style.backgroundColor = '';
+  };
+  showSnackbarButton.addEventListener('click', function() {
+    'use strict';
+    showSnackbarButton.style.backgroundColor = '#' +
+        Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    var data = {
+      message: 'Button color changed.',
+      timeout: 2000,
+      actionHandler: handler,
+      actionText: 'Undo'
+    };
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+</script>
+
+<script>
+var Modal = (function() {
+
+  var trigger = $qsa('.modal__trigger'); // what you click to activate the modal
+  var modals = $qsa('.modal'); // the entire modal (takes up entire window)
+  var modalsbg = $qsa('.modal__bg'); // the entire modal (takes up entire window)
+  var content = $qsa('.modal__content'); // the inner content of the modal
+  var closers = $qsa('.modal__close'); // an element used to close the modal
+  var w = window;
+  var isOpen = false;
+  var contentDelay = 400; // duration after you click the button and wait for the content to show
+  var len = trigger.length;
+
+  // make it easier for yourself by not having to type as much to select an element
+  function $qsa(el) {
+    return document.querySelectorAll(el);
+  }
+
+  var getId = function(event) {
+
+    event.preventDefault();
+    var self = this;
+    // get the value of the data-modal attribute from the button
+    var modalId = self.dataset.modal;
+    var len = modalId.length;
+    // remove the '#' from the string
+    var modalIdTrimmed = modalId.substring(1, len);
+    // select the modal we want to activate
+    var modal = document.getElementById(modalIdTrimmed);
+    // execute function that creates the temporary expanding div
+    makeDiv(self, modal);
+  };
+
+  var makeDiv = function(self, modal) {
+
+    var fakediv = document.getElementById('modal__temp');
+
+    /**
+     * if there isn't a 'fakediv', create one and append it to the button that was
+     * clicked. after that execute the function 'moveTrig' which handles the animations.
+     */
+
+    if (fakediv === null) {
+      var div = document.createElement('div');
+      div.id = 'modal__temp';
+      self.appendChild(div);
+      moveTrig(self, modal, div);
+    }
+  };
+
+  var moveTrig = function(trig, modal, div) {
+    var trigProps = trig.getBoundingClientRect();
+    var m = modal;
+    var mProps = m.querySelector('.modal__content').getBoundingClientRect();
+    var transX, transY, scaleX, scaleY;
+    var xc = w.innerWidth / 2;
+    var yc = w.innerHeight / 2;
+
+    // this class increases z-index value so the button goes overtop the other buttons
+    trig.classList.add('modal__trigger--active');
+
+    // these values are used for scale the temporary div to the same size as the modal
+    scaleX = mProps.width / trigProps.width;
+    scaleY = mProps.height / trigProps.height;
+
+    scaleX = scaleX.toFixed(3); // round to 3 decimal places
+    scaleY = scaleY.toFixed(3);
+
+
+    // these values are used to move the button to the center of the window
+    transX = Math.round(xc - trigProps.left - trigProps.width / 2);
+    transY = Math.round(yc - trigProps.top - trigProps.height / 2);
+
+    // if the modal is aligned to the top then move the button to the center-y of the modal instead of the window
+    if (m.classList.contains('modal--align-top')) {
+      transY = Math.round(mProps.height / 2 + mProps.top - trigProps.top - trigProps.height / 2);
+    }
+
+
+    // translate button to center of screen
+    trig.style.transform = 'translate(' + transX + 'px, ' + transY + 'px)';
+    trig.style.webkitTransform = 'translate(' + transX + 'px, ' + transY + 'px)';
+    // expand temporary div to the same size as the modal
+    div.style.transform = 'scale(' + scaleX + ',' + scaleY + ')';
+    div.style.webkitTransform = 'scale(' + scaleX + ',' + scaleY + ')';
+
+
+    window.setTimeout(function() {
+      window.requestAnimationFrame(function() {
+        open(m, div);
+      });
+    }, contentDelay);
+
+  };
+
+  var open = function(m, div) {
+
+    if (!isOpen) {
+      // select the content inside the modal
+      var content = m.querySelector('.modal__content');
+      // reveal the modal
+      m.classList.add('modal--active');
+      // reveal the modal content
+      content.classList.add('modal__content--active');
+
+      /**
+       * when the modal content is finished transitioning, fadeout the temporary
+       * expanding div so when the window resizes it isn't visible ( it doesn't
+       * move with the window).
+       */
+
+      content.addEventListener('transitionend', hideDiv, false);
+
+      isOpen = true;
+    }
+
+    function hideDiv() {
+      // fadeout div so that it can't be seen when the window is resized
+      div.style.opacity = '0';
+      content.removeEventListener('transitionend', hideDiv, false);
+    }
+  };
+
+  var close = function(event) {
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    var target = event.target;
+    var div = document.getElementById('modal__temp');
+
+    /**
+     * make sure the modal__bg or modal__close was clicked, we don't want to be able to click
+     * inside the modal and have it close.
+     */
+
+    if (isOpen && target.classList.contains('modal__bg') || target.classList.contains('modal__close')) {
+
+      // make the hidden div visible again and remove the transforms so it scales back to its original size
+      div.style.opacity = '1';
+      div.removeAttribute('style');
+
+      /**
+      * iterate through the modals and modal contents and triggers to remove their active classes.
+      * remove the inline css from the trigger to move it back into its original position.
+      */
+
+      for (var i = 0; i < len; i++) {
+        modals[i].classList.remove('modal--active');
+        content[i].classList.remove('modal__content--active');
+        trigger[i].style.transform = 'none';
+        trigger[i].style.webkitTransform = 'none';
+        trigger[i].classList.remove('modal__trigger--active');
+      }
+
+      // when the temporary div is opacity:1 again, we want to remove it from the dom
+      div.addEventListener('transitionend', removeDiv, false);
+
+      isOpen = false;
+
+    }
+
+    function removeDiv() {
+      setTimeout(function() {
+        window.requestAnimationFrame(function() {
+          // remove the temp div from the dom with a slight delay so the animation looks good
+          div.remove();
+        });
+      }, contentDelay - 50);
+    }
+
+  };
+
+  var bindActions = function() {
+    for (var i = 0; i < len; i++) {
+      trigger[i].addEventListener('click', getId, false);
+      closers[i].addEventListener('click', close, false);
+      modalsbg[i].addEventListener('click', close, false);
+    }
+  };
+
+  var init = function() {
+    bindActions();
+  };
+
+  return {
+    init: init
+  };
+
+}());
+
+Modal.init();
+</script>
+
+
+
+<% include ../footer.ejs %> 

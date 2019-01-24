@@ -1,0 +1,131 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <title>IQuizz in Realtime !</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200">
+        <link rel="stylesheet" href="./style.css"
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+
+
+
+
+
+    </head>
+    <body>
+        <header id="header">
+
+          <a href="/api/dashboard" id="dashboard">
+            <button class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="color:white;"><i class="material-icons" style="color:white">
+            home
+            </i>    DASHBOARD</button>
+          </a>
+            <!-- <div class="logo">
+                <img src="./assets/pusher-logo.png" />
+            </div> -->
+
+
+            <div id="logout" class="logout">
+               <a href="/logout">Logout</a>
+            </div>
+            
+
+        </header>
+        <section class="subheader" id="subheader">
+            <img class="whatsup-logo" src="./assets/whatsup.png" />
+            <h2>Pessoas online</h2>
+
+
+            
+
+        </section>
+
+        <section>
+           <div id="loader" class="loader">
+           </div>
+
+           <script id="member-template" type="text/x-template">
+                <div class="user-icon">
+                    <img src="./assets/user.png" />
+                </div>
+                <div class="user-info">
+                    <div class="row">
+                        <div class="name">{{username}}</div>
+                        <div class="status">{{status}}</div>
+                        <div class="time">{{time}}</div>
+                    </div>
+                </div>
+            </script>
+           <div id="me" class="me">
+            <div class="myicon">
+                <img src="./assets/self.png" />
+            </div>
+            <div class="status">
+                <div id="myusername" class="username"></div>
+                <div id="mystatus" class="text" contenteditable></div>
+            </div>
+           </div>
+
+           <div id="membersList" class="members-list">
+           </div>
+
+
+<div class="mdl-grid">
+    <!-- ===== 1 DIV ===== -->
+    <div class="mdl-cell mdl-cell--4-col"></div>
+    <!-- ===== 2 DIV ===== -->
+    <div class="mdl-cell mdl-cell--4-col">
+
+              <div id="signup-form" class="tab-content">
+                <div class="header" style="margin-top: 100px;">
+                    <a href="/api/new"><div><img src="./assets/comments.png"></div></a>
+                    <div class="text">Inscreva-se!</div>
+                </div>
+
+                <form  id="user-form">
+                    <div class="signup-form">
+                        <div class="left-side">
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username" >
+                            <input class="mdl-textfield__input" type="text" required name="username" id="display_name">
+                            <label class="mdl-textfield__label"  for="display_name">Username</label>
+                          </div>
+
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-password" style="color: darkblue;">
+                            <input class="mdl-textfield__input" type="password" required name="password" id="password">
+                            <label class="mdl-textfield__label" for="password">Senha</label>
+                          </div>
+
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-status" style="color: green;">
+                            <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status"></textarea>
+                            <label class="mdl-textfield__label" for="initial_status">Status</label>
+                          </div>
+                          <br/>
+                          
+
+                        </div>
+                        <div class="right-side" style="float: right; margin-right: 130px;">
+
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                              Entrar
+                            </button>           
+                        </div>
+                    </div>
+                </form>
+            </div>
+    </div>
+    <!-- ===== 3 DIV ===== -->
+    <div class="mdl-cell mdl-cell--2-col"></div>
+
+</div>
+
+</section>
+
+  <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script type="text/javascript" src="./app.js"></script>
+</body>
+</html>

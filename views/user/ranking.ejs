@@ -1,0 +1,874 @@
+<% include ../header.ejs %>
+
+<% if(typeof(account.session) == "undefined"){ %>
+  <ul class='menu'>
+        <li><a href='/login'>login</a></li>
+        <li><a href='/account/new'>criar conta</a></li>
+  </ul>
+<% }else{ %>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.5;
+  font-family: 'Lato';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+h1,
+h2,
+h3,
+p {
+  font-weight: 300;
+  margin: 0 0 2.4rem 0;
+}
+h1,
+h2,
+h3 {
+  line-height: 1.3;
+}
+a {
+  
+  color: inherit;
+  font-weight: 400;
+}
+/**
+ * Material Modal CSS
+ */
+.modal {
+  will-change: visibility, opacity;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition-delay: $modal-delay;
+}
+.modal--active {
+  visibility: visible;
+  opacity: 1;
+}
+.modal--align-top {
+  align-items: flex-start;
+}
+.modal__bg {
+  background: transparent;
+}
+.modal__dialog {
+  max-width: 600px;
+  padding: 1.2rem;
+}
+.modal__content {
+  will-change: transform, opacity;
+  position: relative;
+  padding: 2.4rem;
+  background: #ffebee;
+  background-clip: padding-box;
+  box-shadow: 0 12px 15px 0 rgba(0,0,0,0.25);
+  opacity: 0;
+  transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.modal__content--active {
+  opacity: 1;
+}
+.modal__close {
+  z-index: 1100;
+  cursor: pointer;
+}
+.modal__trigger {
+  position: relative;
+  display: inline-block;
+  padding: 1.2rem 2.4rem;
+  color: rgba(0,0,0,0.7);
+  line-height: 1;
+  cursor: pointer;
+  background: #ffebee;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.modal__trigger--active {
+  z-index: 10;
+}
+.modal__trigger:hover {
+  background: #e5d3d6;
+}
+#modal__temp {
+  will-change: transform, opacity;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #ffebee;
+  -webkit-transform: none;
+          transform: none;
+  opacity: 1;
+  transition: opacity 0.1s ease-out, -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/**
+ * Demo specific CSS
+ */
+body {
+  height: 100vh;
+}
+img {
+  max-width: 100%;
+}
+.demo-btns header {
+  padding: 7vh 10vw;
+  background: #ffebee;
+  display: flex;
+  align-items: center;
+}
+.demo-btns header h1 {
+  margin: 0;
+  color: rgba(0,0,0,0.54);
+  font-weight: 300;
+}
+.demo-btns .info {
+  background: #f44336;
+  padding: 3vh 10vw;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column wrap;
+}
+.demo-btns p {
+  text-align: center;
+  color: #fff;
+}
+.demo-btns .link {
+  font-size: 20px;
+}
+.demo-btns .modal__trigger {
+  margin-right: 3px;
+}
+@media (max-width: 640px) {
+  .demo-btns .modal__trigger {
+    margin-bottom: 0.8rem;
+  }
+}
+.demo-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1.2rem;
+  padding: 0.6rem;
+  background: rgba(0,0,0,0.3);
+  border-radius: 50%;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.demo-close svg {
+  width: 24px;
+  fill: #fff;
+  pointer-events: none;
+  vertical-align: top;
+}
+.demo-close:hover {
+  background: rgba(0,0,0,0.6);
+}
+.logo {
+  position: fixed;
+  bottom: 3vh;
+  right: 3vw;
+  z-index: 2;
+}
+.logo img {
+  width: 45px;
+  -webkit-transform: rotate(0);
+          transform: rotate(0);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.logo img:hover {
+  -webkit-transform: rotate(180deg) scale(1.1);
+          transform: rotate(180deg) scale(1.1);
+}
+
+</style>
+  
+
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--4-col">
+    <div class="mdl-cell mdl-cell--4-col">
+
+        <!-- Square card -->
+        <style>
+        a { text-decoration: none}
+        .demo-card-square.mdl-card {
+          width: 320px;
+          height: 320px;
+        }
+        .demo-card-square > .mdl-card__title {
+          color: #fff;
+          background:
+            url('../assets/demos/dog.png') bottom right 15% no-repeat #46B6AC;
+        }
+        </style>
+
+         <div class="demo-card-square mdl-card mdl-shadow--2dp animated fadeIn">
+          <div class="mdl-card__title mdl-card--expand">
+            <a href="/api/dashboard"><h2 class="mdl-card__title-text"><%= account.session.firstName + ' ' + account.session.lastName %>   
+            
+            </h2>
+            </a>
+            
+          </div>
+
+          <div class="mdl-card__supporting-text">
+            <a href="/api/dashboard"><%= '@' + account.session.username %><br/><br/></a>
+
+            <b>Pontuação: <%= account.session.points %></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Nível:</b> <%= account.session.levels %><br/><br/>
+            <b>Partidas Públicas:</b><br/>
+            <b>Partidas Privadas:</b><br/><br/><br/>
+
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="game">
+            <strong>Jogar</strong>
+            </div>
+            <a href="/api/games">
+              <button id="game" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  games
+                </i>
+              </button>
+            </a>
+
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="library">
+            <strong>Minha Biblioteca</strong>
+            </div>
+            <a href="/api/library/me">
+              <button id="library" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  library_books
+                </i>
+              </button>
+            <a>
+
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="store">
+            <strong>Ir para Loja</strong>
+            </div>
+            <a href="/api/store">
+              <button id="store" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  store
+                </i>
+              </button>
+            </a>
+
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="contacts">
+            <strong>Meus Contatos</strong>
+            </div>
+            <a href="/api/contacts/me">
+              <button id="contacts" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  contacts
+                </i>
+              </button>
+            </a>
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="chat">
+            <strong>Chat Online</strong>
+            </div>
+            <a href="/">
+              <button id="chat" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  forum
+                </i>
+              </button>
+            </a>
+            <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="add_group">
+            <strong>Adicionar Grupo</strong>
+            </div>
+            <a href="/api/groups/new">
+              <button id="add_group" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+                <i class="material-icons">
+                  group_add
+                </i>
+              </button>
+            </a>
+          </div>
+        </div>
+
+  </div>
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--4-col">
+<style>
+
+.img-gamer {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 2px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center right;
+  object-position: center right;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.16), 0 1px 3px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.img-gamer:hover {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  margin: 2px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center right;
+  object-position: center right;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
+}
+
+</style>
+<br><br><br>
+<table class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+  <thead>
+    <tr>
+      <th>
+        <span id="pos" style="font-size: 18px; color: black">
+          <i class="fas fa-flag-checkered"></i>
+        </span>
+        <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="pos">
+            <strong>Posição</strong>
+        </div>
+      </th>
+      <th class="mdl-data-table__cell--non-numeric">
+        <span style="font-size: 18px; color: black">
+          <i class="fas fa-user-circle"></i>
+        </span>&nbsp;
+        Jogador
+      </th>
+      <th>
+        <span id="gem" style="font-size: 18px; color: #00e5ff">
+          <i class="fas fa-gem"></i>
+        </span>
+        <div class="mdl-tooltip mdl-tooltip--top" data-mdl-for="gem">
+            <strong>Gemas</strong>
+        </div>
+      </th>
+      <th>UF</th>
+    </tr>
+  </thead>
+  <tbody>
+
+<% if (account.jogadores) { %>
+  <% for (account.jogador of account.jogadores) { %>
+  
+    
+    <tr>
+      <td>
+        <a href='/api/users/profile/<%= account.jogador._id %>'> 
+          1ª
+        </a>
+      </td>
+      <td class="mdl-data-table__cell--non-numeric">
+        <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg" alt=`image profile iquizz <%= account.jogador.username %>` class="img-gamer" />&nbsp;&nbsp;
+
+        <a href='/api/users/profile/<%= account.jogador._id %>'>
+          <%= account.jogador.firstName %> <%= account.jogador.lastName %>
+        </a>
+      </td>
+      <td>
+        <a href='/api/users/profile/<%= account.jogador._id %>'>
+          <b>+<%= account.jogador.gems %></b>&nbsp;
+        </a>
+      </td>
+      <td><%= account.jogador.location.addressState %></td>
+    </tr>
+
+  <% } %>
+
+<% } %>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--2-col">
+      <div class="material-icons mdl-badge mdl-badge--overlap" data-badge="4">account_box</div>
+
+    <!-- List with avatar and controls -->
+    <style>
+      .demo-list-control {
+        width: 300px;
+      }
+
+      .demo-list-radio {
+        display: inline;
+      }
+      
+      .scroll-contacts {
+        overflow:scroll;
+        height:360px;
+        overflow:auto
+      }
+
+
+      .scroll-contacts::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        border-radius: 10px;
+        background-color: #F5F5F5;
+      }
+
+      .scroll-contacts::-webkit-scrollbar {
+        width: 4px;
+        background-color: #F5F5F5;
+      }
+
+      .scroll-contacts:hover::-webkit-scrollbar {
+        width: 8px;
+        background-color: #F5F5F5;
+      }
+
+      .scroll-contacts::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+        background-color: #cecece;
+      }
+    
+    </style>
+
+
+
+<form action="/api/ranking" method = "POST">
+ <% if((account.contacts) != "undefined") { %>
+
+    <ul class="demo-list-control mdl-list scroll-contacts">
+    <% for (account.contact of account.contacts) {%> 
+
+      <% if((account.session.username) != (account.contact.username)) { %>
+
+
+          <% let result = account.friends.find( friend => friend.from === account.contact.username && friend.to === account.session.username || friend.from === account.session.username && friend.to === account.contact.username); %>
+
+                    <% if(result) { %>
+
+                    <a href='/api/users/profile/<%= account.contact._id %>'>
+                      <li class="mdl-list__item">
+                        <span class="mdl-list__item-primary-content">
+                          <i class="material-icons  mdl-list__item-avatar">person</i>
+                          <%= account.contact.firstName %> <%= account.contact.lastName %> 
+                        </span>
+                            <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="background-color: #00e676; color: #fff;">
+                              <i class="material-icons">how_to_reg</i>
+                            </button>
+                      </li>
+                    </a>
+                    <br/>
+
+                    <% } else { %>
+
+
+
+                    <a href='/api/users/profile/<%= account.contact._id %>'>
+                      <li class="mdl-list__item">
+                      <span class="mdl-list__item-primary-content">
+                        <i class="material-icons  mdl-list__item-avatar">person</i>
+                        <%= account.contact.firstName %> <%= account.contact.lastName %> 
+                      </span>
+                      
+                      <% let results = account.solicitationsAll.find( solicitation => solicitation.suitorUsername === account.session.username && solicitation.toRecipient === account.contact.username || solicitation.suitorUsername === account.contact.username && solicitation.toRecipient === account.session.username); %>
+
+                    <% if(results) { %>
+                          
+                        <button  class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" style="background-color: gray; color: #fff;">
+                          <i class="material-icons">send</i>
+                        </button>  
+
+                    <% } else { %>
+                    
+                          <button id="sendSolicitation" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-button--colored" value="<%= account.contact.username %>" name="solicitationFriendship" type="submit"      style="background-color: #40c4ff; color: #fff;">
+                            <i class="material-icons">person_add</i>
+                          </button>
+
+
+                    <% } %>
+
+
+
+
+
+
+                      </li><br/>
+                    </a>
+                    <% } %>
+
+
+
+
+
+
+
+
+
+        
+
+  
+      <% } %>
+
+
+
+
+
+
+
+    <% } %>
+    </ul>
+
+<% } %>
+</form>
+
+
+    
+
+</div>
+
+
+<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <dialog class="mdl-dialog">
+    <div class="mdl-dialog__content">
+      <p>
+        Allow this site to collect usage data to improve your experience?
+      </p>
+    </div>
+    <div class="mdl-dialog__actions mdl-dialog__actions--full-width">
+      <button type="button" class="mdl-button">Agree</button>
+      <button type="button" class="mdl-button close">Disagree</button>
+    </div>
+  </dialog>
+  <script>
+    var dialog = document.querySelector('dialog');
+    var showModalButton = document.querySelector('.show-modal');
+    if (! dialog.showModal) {
+      dialogPolyfill.registerDialog(dialog);
+    }
+    showModalButton.addEventListener('click', function() {
+      dialog.showModal();
+    });
+    dialog.querySelector('.close').addEventListener('click', function() {
+      dialog.close();
+    });
+  </script>
+
+
+
+
+
+
+
+    
+
+
+
+
+
+         
+
+
+<div id="demo-snackbar-example" class="mdl-js-snackbar mdl-snackbar">
+  <div class="mdl-snackbar__text"></div>
+  <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<script>
+(function() {
+  'use strict';
+  var snackbarContainer = document.querySelector('#demo-snackbar-example');
+  var showSnackbarButton = document.querySelector('#demo-show-snackbar');
+  var handler = function(event) {
+    showSnackbarButton.style.backgroundColor = '';
+  };
+  showSnackbarButton.addEventListener('click', function() {
+    'use strict';
+    showSnackbarButton.style.backgroundColor = '#' +
+        Math.floor(Math.random() * 0xFFFFFF).toString(16);
+    var data = {
+      message: 'Button color changed.',
+      timeout: 2000,
+      actionHandler: handler,
+      actionText: 'Undo'
+    };
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+  });
+}());
+</script>
+
+<script>
+var Modal = (function() {
+
+  var trigger = $qsa('.modal__trigger'); // what you click to activate the modal
+  var modals = $qsa('.modal'); // the entire modal (takes up entire window)
+  var modalsbg = $qsa('.modal__bg'); // the entire modal (takes up entire window)
+  var content = $qsa('.modal__content'); // the inner content of the modal
+  var closers = $qsa('.modal__close'); // an element used to close the modal
+  var w = window;
+  var isOpen = false;
+  var contentDelay = 400; // duration after you click the button and wait for the content to show
+  var len = trigger.length;
+
+  // make it easier for yourself by not having to type as much to select an element
+  function $qsa(el) {
+    return document.querySelectorAll(el);
+  }
+
+  var getId = function(event) {
+
+    event.preventDefault();
+    var self = this;
+    // get the value of the data-modal attribute from the button
+    var modalId = self.dataset.modal;
+    var len = modalId.length;
+    // remove the '#' from the string
+    var modalIdTrimmed = modalId.substring(1, len);
+    // select the modal we want to activate
+    var modal = document.getElementById(modalIdTrimmed);
+    // execute function that creates the temporary expanding div
+    makeDiv(self, modal);
+  };
+
+  var makeDiv = function(self, modal) {
+
+    var fakediv = document.getElementById('modal__temp');
+
+    /**
+     * if there isn't a 'fakediv', create one and append it to the button that was
+     * clicked. after that execute the function 'moveTrig' which handles the animations.
+     */
+
+    if (fakediv === null) {
+      var div = document.createElement('div');
+      div.id = 'modal__temp';
+      self.appendChild(div);
+      moveTrig(self, modal, div);
+    }
+  };
+
+  var moveTrig = function(trig, modal, div) {
+    var trigProps = trig.getBoundingClientRect();
+    var m = modal;
+    var mProps = m.querySelector('.modal__content').getBoundingClientRect();
+    var transX, transY, scaleX, scaleY;
+    var xc = w.innerWidth / 2;
+    var yc = w.innerHeight / 2;
+
+    // this class increases z-index value so the button goes overtop the other buttons
+    trig.classList.add('modal__trigger--active');
+
+    // these values are used for scale the temporary div to the same size as the modal
+    scaleX = mProps.width / trigProps.width;
+    scaleY = mProps.height / trigProps.height;
+
+    scaleX = scaleX.toFixed(3); // round to 3 decimal places
+    scaleY = scaleY.toFixed(3);
+
+
+    // these values are used to move the button to the center of the window
+    transX = Math.round(xc - trigProps.left - trigProps.width / 2);
+    transY = Math.round(yc - trigProps.top - trigProps.height / 2);
+
+    // if the modal is aligned to the top then move the button to the center-y of the modal instead of the window
+    if (m.classList.contains('modal--align-top')) {
+      transY = Math.round(mProps.height / 2 + mProps.top - trigProps.top - trigProps.height / 2);
+    }
+
+
+    // translate button to center of screen
+    trig.style.transform = 'translate(' + transX + 'px, ' + transY + 'px)';
+    trig.style.webkitTransform = 'translate(' + transX + 'px, ' + transY + 'px)';
+    // expand temporary div to the same size as the modal
+    div.style.transform = 'scale(' + scaleX + ',' + scaleY + ')';
+    div.style.webkitTransform = 'scale(' + scaleX + ',' + scaleY + ')';
+
+
+    window.setTimeout(function() {
+      window.requestAnimationFrame(function() {
+        open(m, div);
+      });
+    }, contentDelay);
+
+  };
+
+  var open = function(m, div) {
+
+    if (!isOpen) {
+      // select the content inside the modal
+      var content = m.querySelector('.modal__content');
+      // reveal the modal
+      m.classList.add('modal--active');
+      // reveal the modal content
+      content.classList.add('modal__content--active');
+
+      /**
+       * when the modal content is finished transitioning, fadeout the temporary
+       * expanding div so when the window resizes it isn't visible ( it doesn't
+       * move with the window).
+       */
+
+      content.addEventListener('transitionend', hideDiv, false);
+
+      isOpen = true;
+    }
+
+    function hideDiv() {
+      // fadeout div so that it can't be seen when the window is resized
+      div.style.opacity = '0';
+      content.removeEventListener('transitionend', hideDiv, false);
+    }
+  };
+
+  var close = function(event) {
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    var target = event.target;
+    var div = document.getElementById('modal__temp');
+
+    /**
+     * make sure the modal__bg or modal__close was clicked, we don't want to be able to click
+     * inside the modal and have it close.
+     */
+
+    if (isOpen && target.classList.contains('modal__bg') || target.classList.contains('modal__close')) {
+
+      // make the hidden div visible again and remove the transforms so it scales back to its original size
+      div.style.opacity = '1';
+      div.removeAttribute('style');
+
+      /**
+      * iterate through the modals and modal contents and triggers to remove their active classes.
+      * remove the inline css from the trigger to move it back into its original position.
+      */
+
+      for (var i = 0; i < len; i++) {
+        modals[i].classList.remove('modal--active');
+        content[i].classList.remove('modal__content--active');
+        trigger[i].style.transform = 'none';
+        trigger[i].style.webkitTransform = 'none';
+        trigger[i].classList.remove('modal__trigger--active');
+      }
+
+      // when the temporary div is opacity:1 again, we want to remove it from the dom
+      div.addEventListener('transitionend', removeDiv, false);
+
+      isOpen = false;
+
+    }
+
+    function removeDiv() {
+      setTimeout(function() {
+        window.requestAnimationFrame(function() {
+          // remove the temp div from the dom with a slight delay so the animation looks good
+          div.remove();
+        });
+      }, contentDelay - 50);
+    }
+
+  };
+
+  var bindActions = function() {
+    for (var i = 0; i < len; i++) {
+      trigger[i].addEventListener('click', getId, false);
+      closers[i].addEventListener('click', close, false);
+      modalsbg[i].addEventListener('click', close, false);
+    }
+  };
+
+  var init = function() {
+    bindActions();
+  };
+
+  return {
+    init: init
+  };
+
+}());
+
+Modal.init();
+
+</script>
+<% include ../footer.ejs %> 

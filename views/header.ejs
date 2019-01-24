@@ -1,0 +1,179 @@
+  <html>
+    <head>
+      <meta charset='utf-8' />
+      <meta http-equiv="refresh" content="x" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+         <!-- Add to homescreen for Chrome on Android -->
+      <meta name="mobile-web-app-capable" content="yes">
+      <link rel="icon" sizes="192x192" href="">
+
+      <!-- Add to homescreen for Safari on iOS -->
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+      
+      <meta name="description" content="A front-end template that helps you build fast, modern mobile web apps.">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+      <link href='//fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en' rel='stylesheet' type='text/css'>
+
+      <title>IQuiz - Play Online Now! </title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+      <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    </head>
+
+    <body>
+  <!-- <header> -->
+<style>
+html {scroll-behavior: smooth;}
+
+.image-user-login {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin: 20px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center right;
+  object-position: center right;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.image-user-login:hover{
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  margin: 20px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -o-object-position: center right;
+  object-position: center right;
+}
+  
+</style>
+
+<div class="mdl-layout mdl-js-layout">
+
+  <header class="mdl-layout__header mdl-layout__header--scroll" style="background-color: #4fc3f7;">
+    <div class="mdl-layout__header-row">
+      <a href="/api/dashboard">
+        <img src="https://i2.cdn.turner.com/cnnnext/dam/assets/140926165711-john-sutter-profile-image-large-169.jpg" class="image-user-login" />
+      </a>      <!-- Title -->
+      <a href="/api/dashboard">
+        <span id="login" class="mdl-layout-title">@<%= account.session.username %>
+        </span>
+      </a>
+      <a class="mdl-navigation__link" href="/api/edit" >
+        <i class="material-icons" id="edit">
+          edit
+        </i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="edit">
+        <strong>Alterar Usuário</strong>
+      </div>
+
+      <div class="mdl-layout-spacer"></div>
+
+      <a class="mdl-navigation__link" href="/api/edit" >
+        <span style="font-size: 20px; color: #fff;" id="ghost">
+          <i class="fas fa-ghost"></i>
+        </span> +<%= account.session.gems %>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="ghost">
+        <strong>Quiz Fantasma</strong>
+      </div>
+
+      <a class="mdl-navigation__link" href="/api/edit" >
+        <span style="font-size: 20px; color: #fff;" id="vitality">
+          <i class="fas fa-heart"></i>
+        </span> +<%= account.session.vitality %>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="vitality">
+        <strong>Vitalidade</strong>
+      </div>
+
+      <a class="mdl-navigation__link" href="/api/edit" >
+        <span style="font-size: 20px; color: #fff;" id="gem">
+         <i class="fas fa-gem"></i>
+        </span> +<%= account.session.gems %>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="gem">
+        <strong>Pontos Em Gemas</strong>
+      </div>
+
+      <a class="mdl-navigation__link" href="/api/disciplines" >
+        <span style="font-size: 20px; color: #fff;" id="medal">
+           <i class="fas fa-medal"></i>
+        </span>
+        +<%= account.session.medals %>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="medal">
+        <strong>Conquistas</strong>
+      </div>
+
+        
+      <!-- Add spacer, to align navigation to the right -->
+      <div class="mdl-layout-spacer"></div>
+      <!-- Navigation -->
+      <nav class="mdl-navigation">
+
+      <a class="mdl-navigation__link show-modal" >
+        <i id="messages" class="material-icons mdl-badge mdl-badge--overlap" data-badge="<%=account.messages.length %>">chat</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="messages">
+        <strong>Mensagens Recebidas</strong>
+      </div>
+
+      <a class="mdl-navigation__link" data-modal="#modal">
+        <i id="notifications" class="material-icons mdl-badge mdl-badge--overlap" data-badge="<%=account.solicitations.length %>">notifications</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="notifications">
+        <strong>Notificações</strong>
+      </div>
+
+
+      <a id="exit" class="mdl-navigation__link" href="/logout">
+        <i class="material-icons">exit_to_app</i>
+      </a>
+      <div class="mdl-tooltip mdl-tooltip--down" data-mdl-for="exit">
+        <strong>Sair</strong>
+      </div>
+
+      </nav>
+
+    </div>
+  </header>
+
+    <div class="mdl-layout__drawer" >
+      <span class="mdl-layout-title" >Menu</span>
+      <nav class="mdl-navigation">
+        <a class="mdl-navigation__link" href="/api/quiz">
+          <i class="material-icons">games</i>&nbsp;&nbsp;&nbsp;Jogos  
+        </a>
+        <a class="mdl-navigation__link" href="/api/contacts/me">
+          <i class="material-icons">contacts</i>&nbsp;&nbsp;&nbsp;Amigos
+        </a>
+
+        <a class="mdl-navigation__link" href="/api/message">
+          <i class="material-icons">textsms</i>&nbsp;&nbsp;&nbsp;Nova Mensagem
+        </a>
+        <a class="mdl-navigation__link" href="/api/groups">
+          <i class="material-icons">group</i>&nbsp;&nbsp;&nbsp;Grupos
+        </a>
+        <a class="mdl-navigation__link" href="/api/ranking">
+          <i class="material-icons">public</i>&nbsp;&nbsp;&nbsp;Ranking
+        </a>
+        <a class="mdl-navigation__link" href="">
+          <i class="material-icons">cake</i>&nbsp;&nbsp;&nbsp;Prêmios
+        </a>
+        <a class="mdl-navigation__link" href="/api/store">
+          <i class="material-icons">store</i>&nbsp;&nbsp;&nbsp;Loja
+        </a>
+        <a class="mdl-navigation__link" href="/api/settings">
+          <i class="material-icons">settings</i>&nbsp;&nbsp;&nbsp;Configurações
+        </a>
+      </nav>
+    </div>
+    <main class="mdl-layout__content">
+      <div class="page-content"><!-- Your content goes here -->
