@@ -48,7 +48,7 @@ app.use(expressSession({
     return uniqid()
   },
   store: new fileStore(),
-  secret:'M3u $3cR3T0 @k1 ',
+  secret:'This is secret, allright? ',
   resave: true,
   saveUninitialized: true,
   cookie: { secure: false, maxAge: 6000000 }
