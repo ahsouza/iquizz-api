@@ -14,12 +14,11 @@ module.quiz = async(req, res) => {
     res.send(err)
   })
 }  
-
 exports.newAsk = async(req, res) => {
   let conquests;
   Conquest.find().sort( [['nameDiscipline', 'ascending'], ['levelLearning', 'ascending']] )
   .then(disciplines => {
-    conquests = disciplines;
+    conquests = disciplines
     res.render('user/askNew', { account: {disciplines: conquests} }) 
   }).catch(err =>{
     res.status(500)
