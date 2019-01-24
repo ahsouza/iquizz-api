@@ -25,68 +25,6 @@ var pusher = new Pusher({
   encrypted: pusherUser.encrypted
 })
 
-exports.quiz = async(req, res) => {
-let asksInformatica
-  Ask.find()
-  .then(asks => {
-    asksInformatica = asks
-    res.render('user/quiz', { account: {asks: asksInformatica} })
-  }).catch(err =>{
-    res.send(err)
-  })
-
-}
-
-exports.viewAskNew = async(req,res) => {
-
-let disciplinas;
-  Discipline.find().sort( [['nameDiscipline', 'ascending'], ['levelLearning', 'ascending']] )
-  .then(disciplines => {
-    disciplinas = disciplines;
-    res.render('user/askNew', { account: {disciplines: disciplinas} }) 
-  }).catch(err =>{
-
-  });
-
-}
-
-exports.newAsk = async(req, res) => {
-
-  const ask = new Ask({
-    creatorAsk: req.body.creatorAsk,
-    discipline: req.body.nameDiscipline,
-    content: req.body.content,
-    answers: {
-      one: { 
-        content: req.body.contentAnswer1,
-        correct: req.body.correctAnswer1
-      },
-
-      two: { 
-        content: req.body.contentAnswer2,
-        correct: req.body.correctAnswer2
-      },
-
-      tree: { 
-        content: req.body.contentAnswer3,
-        correct: req.body.correctAnswer3
-      },
-
-      four: { 
-        content: req.body.contentAnswer4,
-        correct: req.body.correctAnswer4
-      },
-    }
-  })
-
-  ask.save()
-  .then( data => {
-    res.redirect('/api/asks/new')
-  }).catch(err => {
-    res.send(err)
-  })
-}
-
 exports.registerMemberChat = async(req, res) => {
   if  ((req.body.username != "") && (req.body.password != "")) {
     let query = {username: req.body.username, password: req.body.password}
@@ -108,7 +46,7 @@ exports.registerMemberChat = async(req, res) => {
           res.json({  
             success: false,
             error: true,
-            message: 'Incomplete information: username and status are required'
+            message: 'Suas informações não estão completas: username e status é obrigatório!'
           })
         }
       }).catch(err => {
@@ -120,13 +58,11 @@ exports.registerMemberChat = async(req, res) => {
 }
 
 exports.newUser = async(req, res) => {
-    // Validate request
   if(!req.body.username) {
     return res.status(400).send({
       message: "Preencha os dados do usuario corretamente"
     })
   }
-  // Create a User
   const user = new User({
     firstName:   req.body.firstName,
     lastName:     req.body.lastName,
@@ -153,12 +89,11 @@ exports.newUser = async(req, res) => {
     res.redirect('/')
   }).catch(err => {
     res.status(500).send({
-      message: err.message || "Some error occurred while creating the User."
+      message: err.message || "Algum erro ocorreu durante a criação do usuário"
     })
     res.render("/", {'errors': [{'msg': error.err}]})
   })
 }
-
 exports.loggedIn = async(req, res) => {
   if(req.session.user){
     res.send({ 
@@ -169,19 +104,16 @@ exports.loggedIn = async(req, res) => {
   }
 }
 exports.allowSolicitation = async(req, res, next) => {
-  // Validate Request
   if (req.body.allow) { 
-  // Find user and update it with the request body
   Solicitation.findOneAndUpdate({suitorUsername: req.body.allow, toRecipient: req.session.user.username}, {
     allow: true
   }, {new: true})
     .then(solicitation => {
       if(!solicitation) {
         return res.status(404).send({
-          message: "solicitation not found with "
+          message: "Não foi possível solicitar a pessoa!"
         })
       }
-  // New friends
    const friend = new Friend({
     from:   req.body.allow,
     to:   req.session.user.username
@@ -196,18 +128,18 @@ exports.allowSolicitation = async(req, res, next) => {
        .then(solicitation => {
         if(!solicitation) {
           return res.status(404).redirect('/api/error', {
-            message: "solicitation not found with "
+            message: "Não foi possível solicitar a pessoa! "
           })
         }
         }).catch(err => {  
             return res.status(500).redirect('/api/error', {
-                message: "Error updating solicitation with id " 
+                message: "Error ao atualizar usuário!" 
             })
         })
         setInterval(function(){ res.redirect('/api/dashboard')}, 3000)
     }).catch(err => {
         return res.status(500).redirect('/api/error', {
-            message: "Error updating solicitation with id " 
+            message: "Error ao atualizar usuário! " 
         })
     })
   } 
@@ -253,7 +185,7 @@ exports.viewDashboard = async(req, res) => {
       console.log(err)
     })
 
-let users;
+let users
   User.find().sort( [['username', 'ascending']] )
    .then(usersOf => {
       users = usersOf
@@ -302,11 +234,10 @@ let query = {toRecipient: req.session.user.username }
     })
     .catch(err => {
       return res.status(500).redirect('/api/error', {
-        message: "Error retrieving user"
+        message: "Error ao enviar menssagem!"
       })
     })
 }
-
 exports.viewRegister = async(req, res) => {
   School.find()
     .then( schools => {
@@ -375,17 +306,6 @@ let groups
       res.status(500)
   })
 }
-// exports.viewGroupsSearch = async(req, res, next) => {
-// var searchParams = req.query.query.toUpperCase().split(' ');
-
-//   Group.find({ tags: { $all: searchParams }}, function (e, data) {
-//     res.render('user/group', { results: true, search: req.query.query, list: data }, { account: { 
-//       session: req.session.user,
-//       groups: groups,
-//       members: members
-//     }});
-//   });
-// }
 exports.auth = async(req, res) => {
   if  ((req.session.user.username != "undefined") && (req.session.user.password != "undefined")) {
 let  statusUser = req.session.user.status
@@ -416,46 +336,9 @@ exports.viewEdit = async(req, res) => {
   res.render('user/alter', {
     account: {
       session: req.session.user
-    }});
+    }})
 }
-
-// Retrieve and return all users from the database.
-exports.findAll = async(req, res) => {
-  User.find()
-   .then(users => {
-      res.send(users);
-    }).catch(err => {
-      res.status(500).send({
-      message: err.message || "Some error occurred while retrieving users."
-    });
-  });
-};
-// Find a single user with a userId
-exports.findOne = async(req, res) => {
-  User.findById(req.params.userId)
-    .then(user => {
-        if(!user) {
-            return res.status(404).send({
-                message: "Usuário não encontrado com id>  " + req.params.userId
-            });            
-        }
-        res.send(user);
-    }).catch(err => {
-        if(err.kind === 'ObjectId') {
-            return res.status(404).send({
-                message: "Usuário não encontrado com id> " + req.params.userId
-            });                
-        }
-        return res.status(500).send({
-            message: "Error retrieving user with id> " + req.params.userId
-        });
-   });
-
-};
-// Update a user identified by the userId in the request
 exports.editUser = async(req, res) => {
-  // Validate Request
-  // Find user and update it with the request body
   User.findOneAndUpdate({ username: req.session.user.username}, {
     firstName: req.body.firstName,
     lastName:  req.body.lastName,
@@ -486,22 +369,21 @@ exports.delete = (req, res) => {
    .then(user => {
     if(!user) {
       return res.status(404).send({
-        message: "User not found with id " + req.params.userId
+        message: "Usuário não encontrado com o ID" + req.params.userId
       })
     }
-    res.send({message: "User deleted successfully!"})
+    res.send({message: "Usuário deletado com sucesso!"})
     }).catch(err => {
-      if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+      if(err.kind === 'ObjectId' || err.name === 'Not Found') {
         return res.status(404).send({
-          message: "User not found with id " + req.params.userId
+          message: "Usuário não encontrado com ID " + req.params.userId
         })
       }
       return res.status(500).send({
-        message: "Could not delete user with id " + req.params.userId
+        message: "Não foi possível deletar o usuário com ID " + req.params.userId
       })
     })
 }
-
 exports.logout = async(req,res) => {
   if(req.session.user){
     req.session.user = null
@@ -509,7 +391,6 @@ exports.logout = async(req,res) => {
   }
   res.redirect('/')
 }
-
 function sleep (ms = 0) {
   return new Promise(r => setTimeout(r, ms))
 }

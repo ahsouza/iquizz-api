@@ -166,3 +166,14 @@ let groupRemove = req.params._id;
       res.status(500)
     })
 }
+// exports.viewGroupsSearch = async(req, res, next) => {
+// var searchParams = req.query.query.toUpperCase().split(' ');
+
+//   Group.find({ tags: { $all: searchParams }}, function (e, data) {
+//     res.render('user/group', { results: true, search: req.query.query, list: data }, { account: { 
+//       session: req.session.user,
+//       groups: groups,
+//       members: members
+//     }});
+//   });
+// }
