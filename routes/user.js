@@ -6,7 +6,6 @@ module.exports = (app) => {
   app.get('/isLoggedIn', userController.loggedIn)
   app.get('/logout', userController.logout)
   app.get('/api/new', userController.viewRegister)
-  // app.get('/api/account/register', userController.viewRegister);
   app.get('/api/account/me/:id')
   app.post('/api/new', userController.newUser)
   app.post('/api/dashboard', userController.allowSolicitation, userController.disallowSolicitation)
@@ -14,7 +13,6 @@ module.exports = (app) => {
   app.get('/api/users/profile/:id', userController.viewUserProfile)
   app.get('/api/edit', userController.viewEdit)
   app.post('/api/edit', userController.editUser)
-  // app.get('/api/groups/search', userController.viewGroupsSearch);
   app.post('/api/auth', userController.auth)
   app.post('/register', userController.registerMemberChat)
 }
