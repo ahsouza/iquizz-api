@@ -2,7 +2,6 @@ module.exports = (app) => {
   const
    User = require('../models/user.js'),
    userController = require('../controllers/user.js')
-  
   app.get('/isLoggedIn', userController.loggedIn)
   app.get('/logout', userController.logout)
   app.get('/api/new', userController.viewRegister)
@@ -20,22 +19,22 @@ module.exports = (app) => {
   // const isLoggedIn = (req, res, next) => {
   //    if(typeof(req.session.username) != 'undefined'){
   //      if(req.session.username != '' && req.session.login == true) {
-  //        res.redirect('/');     
+  //        res.redirect('/')
   //      }
   //    }
-  //   next();
+  //   next()
   // }
 
   // const isLogged = (req, res, next) => {
   //   if(typeof(req.session.username) == 'undefined' && req.session.login == false){
-  //       res.redirect('/login');      
+  //       res.redirect('/login')
   //   }
-  //   next();
+  //   next()
   // }
 
   // const isAdmin = (req, res, next) => {
   //   if(typeof(req.session.isAdmin) == true){
-  //       res.redirect('/config');      
+  //       res.redirect('/config')
   //   }
-  //   next();
+  //   next()
   // }

@@ -54,7 +54,7 @@ app.use(expressSession({
   cookie: { secure: false, maxAge: 6000000 }
 }))
 app.use((req, res, next) => {
-  res.locals.session = req.session;
+  res.locals.session = req.session
   next()
 })
 // app.use(morgan(':username :remote-addr [:date[web]] ":method :url :referrer :status '))

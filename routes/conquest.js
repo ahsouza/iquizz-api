@@ -1,6 +1,6 @@
 module.exports = (app) => {
   const Conquest = require('../models/discipline.js'),
-  conquestController = require('../controllers/conquest.js');
+  conquestController = require('../controllers/conquest.js')
 
   app.get('/api/conquests', conquestController.conquestAll)
   app.get('/api/conquest/new', conquestController.conquestNew)

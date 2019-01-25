@@ -15,7 +15,7 @@ module.quiz = async(req, res) => {
   })
 }  
 exports.newAsk = async(req, res) => {
-  let conquests;
+  let conquests
   Conquest.find().sort( [['nameDiscipline', 'ascending'], ['levelLearning', 'ascending']] )
   .then(disciplines => {
     conquests = disciplines
