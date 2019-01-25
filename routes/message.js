@@ -1,10 +1,5 @@
 module.exports = (app) => {
   const
-   Message = require('../models/message.js'),
-   User = require('../models/user.js'),
-   Solicitation = require('../models/solicitation.js'),
-   Friend = require('../models/friend.js'),
-   Member = require('../models/member.js'),
    messageController = require('../controllers/message.js')
   app.get('/api/message', messageController.viewMessage)
   app.get('/api/message/:id', messageController.viewMessageTo)

@@ -4,7 +4,7 @@ const
  Ask = require('../models/ask.js'),
  School = require('../models/school.js')
 
-module.quiz = async(req, res) => {
+exports.quiz = async(req, res) => {
   let asksInformatica
   Ask.find()
   .then(asks => {
@@ -19,7 +19,7 @@ exports.newAsk = async(req, res) => {
   Conquest.find().sort( [['nameDiscipline', 'ascending'], ['levelLearning', 'ascending']] )
   .then(disciplines => {
     conquests = disciplines
-    res.render('user/askNew', { account: {disciplines: conquests} }) 
+    res.render('quiz/askNew', { account: {disciplines: conquests} }) 
   }).catch(err =>{
     res.status(500)
   })

@@ -1,12 +1,11 @@
 module.exports = (app) => {
   const
-   User = require('../models/user.js'),
    userController = require('../controllers/user.js')
   app.get('/isLoggedIn', userController.loggedIn)
   app.get('/logout', userController.logout)
   app.get('/api/new', userController.viewRegister)
-  app.get('/api/account/me/:id')
   app.post('/api/new', userController.newUser)
+  app.get('/api/account/me/:id')
   app.post('/api/dashboard', userController.allowSolicitation, userController.disallowSolicitation)
   app.get('/api/dashboard', userController.viewDashboard)
   app.get('/api/users/profile/:id', userController.viewUserProfile)
