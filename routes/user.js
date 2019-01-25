@@ -15,14 +15,8 @@ module.exports = (app) => {
   app.get('/api/edit', userController.viewEdit)
   app.post('/api/edit', userController.editUser)
   // app.get('/api/groups/search', userController.viewGroupsSearch);
-  app.post('/api/auth', userController.auth);
-  app.post('/register', userController.registerMemberChat);
-  // ROUTES TO GAME QUIZ
-  app.get('/api/quiz', userController.quiz);
-
-  app.get('/api/asks/new', userController.viewAskNew);
-
-  app.post('/api/asks/new', userController.newAsk);
+  app.post('/api/auth', userController.auth)
+  app.post('/register', userController.registerMemberChat)
 }
 
   // const isLoggedIn = (req, res, next) => {

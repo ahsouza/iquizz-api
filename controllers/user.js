@@ -151,12 +151,12 @@ exports.disallowSolicitation = async(req, res) => {
   // Find user and update it with the request body
   Solicitation.remove({suitorUsername: req.body.disallow, toRecipient: req.session.user.username})
    .then(solicitation => {
-      setInterval(function(){ res.redirect('/api/dashboard'); }, 3000)
+      setInterval(function(){ res.redirect('/api/dashboard')}, 3000)
     })
   }
 }
 exports.viewDashboard = async(req, res) => {
-  let url;
+  let url
   const options = {
     // uri: `https://www.ifes.edu.br/noticias`,
     uri: `http://www.ufes.br/noticias`,
@@ -263,7 +263,7 @@ let solicitations
   })
 let solicitation = 
   Solicitation.find({ toRecipient: req.session.user.username }).then(solicitations =>{ solicitation = solicitations})
-  // let query = {creator: req.session.user._id };
+  // let query = {creator: req.session.user._id }
   let query = {toRecipient: req.session.user.username }
   // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
   let messagesMe
@@ -299,7 +299,6 @@ let groups
           solicitations: solicitation,
           messages: messagesMe,
           user: user
-
         }
       })
     }).catch(err => {
@@ -336,7 +335,8 @@ exports.viewEdit = async(req, res) => {
   res.render('user/alter', {
     account: {
       session: req.session.user
-    }})
+    }
+  })
 }
 exports.editUser = async(req, res) => {
   User.findOneAndUpdate({ username: req.session.user.username}, {
@@ -358,7 +358,7 @@ exports.editUser = async(req, res) => {
     if(!user) {
       return res.status(404)
     }
-      setInterval(function(){ res.redirect('/api/dashboard'); }, 2000);
+      setInterval(function(){ res.redirect('/api/dashboard') }, 2000)
     }).catch(err => {
       return res.status(500)
     })
