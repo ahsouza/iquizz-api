@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const user = mongoose.Schema({  
   username: { type: String, required: true, index: {unique: true}},
@@ -86,7 +86,7 @@ const user = mongoose.Schema({
   dateCreated: { type: Date, default: Date.now },
   dateModified: { type: Date, default: Date.now }
 
-}, {timestamps: true}, {collection: 'users'});  
+}, {timestamps: true}, {collection: 'users'})
 
-module.exports = mongoose.model('User', user);
-// hash: { type: String, required: true },
+module.exports = mongoose.model('User', user)
+//TODO Implementação de Token para usuários hash: { type: String, required: true },

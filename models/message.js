@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 const message = Schema({
   creator: { type: Schema.ObjectId, required: true, ref: 'users'},
@@ -19,6 +19,6 @@ const message = Schema({
   count: Number,
   datePublished: { type: Date, default: Date.now }
 
-}, { timestamps: true }, { collection: 'messages' });
+}, { timestamps: true }, { collection: 'messages' })
 
-module.exports = mongoose.model('Message', message);
+module.exports = mongoose.model('Message', message)

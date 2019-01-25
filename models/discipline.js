@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 const discipline = Schema({
   nameDiscipline: { type: String, required: true, index: {unique: true}},
@@ -8,6 +8,6 @@ const discipline = Schema({
   tags: [String],
   datePublished: { type: Date, default: Date.now }
 
-}, { timestamps: true }, { collection: 'disciplines' });
+}, { timestamps: true }, { collection: 'disciplines' })
 
-module.exports = mongoose.model('Discipline', discipline);
+module.exports = mongoose.model('Discipline', discipline)

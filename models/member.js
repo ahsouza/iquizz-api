@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const member = mongoose.Schema({  
   username: { type: String, required: true, ref: 'users'},
@@ -13,7 +13,6 @@ const member = mongoose.Schema({
   dateCreated: { type: Date, default: Date.now },
   dateModified: { type: Date, default: Date.now }
 
-}, {timestamps: true}, {collection: 'members'});  
+}, {timestamps: true}, {collection: 'members'})
 
-module.exports = mongoose.model('Member', member);
-// hash: { type: String, required: true },
+module.exports = mongoose.model('Member', member)

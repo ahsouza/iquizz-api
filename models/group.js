@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const group = mongoose.Schema({  
   name: { type: String, required: true},
@@ -37,8 +37,7 @@ const group = mongoose.Schema({
   dateCreated: { type: Date, default: Date.now },
   dateModified: { type: Date, default: Date.now }
 
-}, {timestamps: true}, {collection: 'groups'});  
+}, {timestamps: true}, {collection: 'groups'})
 
-
-module.exports = mongoose.model('Group', group);
-// hash: { type: String, required: true },
+module.exports = mongoose.model('Group', group)
+//TODO Implementar Token para usuários hash: { type: String, required: true },

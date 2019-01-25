@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 var Schema = mongoose.Schema;
 
 const ask = Schema({
@@ -12,28 +12,22 @@ const ask = Schema({
       correct: { type: Boolean, default: false },
       points:  { type: Number, default: 0 } 
     },
-
     two:{
       content: { type: String, required: true},
       correct: { type: Boolean, default: false },
       points:  { type: Number, default: 0 } 
     },
-
     tree:{
       content: { type: String, required: true},
       correct: { type: Boolean, default: false },
       points:  { type: Number, default: 0 } 
     },
-
     four:{
       content: { type: String, required: true},
       correct: { type: Boolean, default: false },
       points:  { type: Number, default: 0 } 
     },
-
   },
   datePublished: { type: Date, default: Date.now }
-
-}, { timestamps: true }, { collection: 'asks' });
-
-module.exports = mongoose.model('Ask', ask);
+}, { timestamps: true }, { collection: 'asks' })
+module.exports = mongoose.model('Ask', ask)

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 const school = Schema({
   name: { type: String, required: true , index: { unique: true }},
@@ -24,6 +24,6 @@ const school = Schema({
   tags: [String],
   datePublished: { type: Date, default: Date.now }
 
-}, { timestamps: true }, { collection: 'schools' });
+}, { timestamps: true }, { collection: 'schools' })
 
-module.exports = mongoose.model('School', school);
+module.exports = mongoose.model('School', school)

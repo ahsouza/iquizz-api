@@ -1,4 +1,7 @@
 /node_modules
 /config/pusher.js
 /sessions
+/models/db.users.insert
+/models/untitled.js
+
 package-lock.json

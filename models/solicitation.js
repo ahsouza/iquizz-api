@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+var Schema = mongoose.Schema
 
 const solicitation = Schema({
   suitor: { type: Schema.ObjectId, required: true, ref: 'users'},
@@ -12,6 +12,6 @@ const solicitation = Schema({
   allow: { type: Boolean, default: false },
   datePublished: { type: Date, default: Date.now }
 
-}, { timestamps: true }, { collection: 'solicitations' });
+}, { timestamps: true }, { collection: 'solicitations' })
 
-module.exports = mongoose.model('Solicitation', solicitation);
+module.exports = mongoose.model('Solicitation', solicitation)
