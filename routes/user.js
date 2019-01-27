@@ -14,7 +14,6 @@ module.exports = (app) => {
   app.post('/api/auth', userController.auth)
   app.post('/register', userController.registerMemberChat)
 }
-
   // const isLoggedIn = (req, res, next) => {
   //    if(typeof(req.session.username) != 'undefined'){
   //      if(req.session.username != '' && req.session.login == true) {

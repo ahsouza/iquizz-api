@@ -4,7 +4,7 @@ module.exports = () => {
 
 mongoose.set('useFindAndModify', false)
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db, {useNewUrlParser: true})
+mongoose.connect(config.db, {useNewUrlParser: true, useCreateIndex: true})
   .then(() => {
     console.log('Conectado ao banco de dados MongoDB com sucesso!')
   }).catch(err => {

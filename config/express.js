@@ -12,8 +12,8 @@ const
  csrfProtection = csrf({cookie: true }),
  cookieParser = require('cookie-parser'),
  config  = require('./config'),
- load = require('express-load'),
  cors = require('cors'),
+ load = require('express-load'),
  validator = require('express-validator'),
  url = require('url'),
  favicon = require('static-favicon'),
@@ -32,18 +32,7 @@ const fileStore = require('session-file-store')(expressSession),
 Promise = require('promise')
 
 module.exports = () => {
- var app = express()
- require('../routes/user.js')(app)
- require('../routes/message.js')(app)
- require('../routes/group.js')(app)
- require('../routes/conquest.js')(app)
- require('../routes/quiz.js')(app)
-  // load('models', {cwd: 'app'})
-  //   .then('controllers')
-  //   .then('routes/auth.js')
-  //   .then('routes')
-  //   .into(app);
-  
+var app = express()
 app.use(require('method-override')())
 app.use(cookieParser())
 app.use(expressSession({
@@ -79,11 +68,10 @@ app.use(helmet.hidePoweredBy({
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, '../public')))
 app.use(favicon(__dirname + '/public/assets/favicon.ico'))
 app.set('trust proxy', 1)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
-  return app;
+  return app
 }
-

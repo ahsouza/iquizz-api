@@ -21,7 +21,6 @@ const
  jwt = require('jsonwebtoken'),
  config = require('../config/jwt.js')
 
-  
 var pusher = new Pusher({
   appId: pusherUser.appId,
   key: pusherUser.key,
@@ -353,7 +352,6 @@ passport.deserializeUser((id, done) => {
 passport.authenticate('local')
 
   if  ((req.session.user.username != "undefined") && (req.session.user.password != "undefined")) {
-    
     let  statusUser = req.session.user.status
     let query = {username: req.session.user.username, password: req.session.user.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
@@ -380,10 +378,6 @@ passport.authenticate('local')
         res.redirect('/api/new')
      })
   } 
-
-
-
-
 }
 
 exports.viewEdit = async(req, res) => {
