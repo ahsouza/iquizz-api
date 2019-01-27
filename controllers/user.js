@@ -415,8 +415,8 @@ exports.editUser = async(req, res) => {
 }
 // Delete a user with the specified userId in the request
 exports.delete = (req, res) => {
-  va _id = sanitize(req.params.id)
-  User.findByIdAndRemove(_id).exec()
+  var userId = sanitize(req.params.id)
+  User.findByIdAndRemove(userId).exec()
    .then(user => {
     if(!user) {
       return res.status(404).send({

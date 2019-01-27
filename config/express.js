@@ -49,6 +49,7 @@ app.use((req, res, next) => {
   res.locals.session = req.session 
   next() 
 })
+
 // app.use(morgan(':username :remote-addr [:date[web]] ":method :url :referrer :status '))
 // app.use(morganToolkit())
 app.use(passport.initialize())
@@ -71,7 +72,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, '../public')))
 app.use(favicon(__dirname + '../public/assets/favicon.ico'))
 app.set('trust proxy', 1)
-app.set('views', path.join(__dirname, 'views'))
+app.set('views', path.join(__dirname, '../views'))
 app.set('view engine', 'ejs')
   return app
 }
