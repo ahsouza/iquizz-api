@@ -2,10 +2,7 @@ var
   app = require('./config/express')()
 
 require('./config/database.js')(config.db)
-  // load('../controllers')
-//     .then('../routes')
-//     .then('../models')
-//     .into(app);
+  
  require('./routes/user.js')(app)
  require('./routes/message.js')(app)
  require('./routes/group.js')(app)
