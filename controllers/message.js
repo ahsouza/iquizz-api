@@ -52,7 +52,7 @@ exports.viewMessageTo = async(req, res) => {
     })
   // TODO: GAMBIARRA> Retornando 'header.css' como params._id
   if (req.params.id != 'header.css') {
-     idUser = req.params.id
+     idUser = sanitize(req.params.id)
   }
   // TODO: GAMBIARRA> Retornando 'header.css' como params._id
 let friends

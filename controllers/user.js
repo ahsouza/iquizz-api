@@ -1,5 +1,6 @@
 const 
  User = require('../models/user.js'),
+ sanitize = require('mongo-sanitize'),
  Message = require('../models/message.js'),
  Solicitation = require('../models/solicitation.js'),
  Friend = require('../models/friend.js'),
@@ -33,7 +34,7 @@ exports.registerMemberChat = async(req, res) => {
   if  ((req.body.username != "") && (req.body.password != "")) {
     let query = {username: req.body.username, password: req.body.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
-    User.findOne(query)
+    User.findOne(query).exec()
       .then(user => {
         if(req.body.username && req.body.status){
         var newMember = {
@@ -95,7 +96,7 @@ exports.newUser = async(req, res) => {
   })
 
   // Save User in the database
-  user.save()
+  user.save().exec()
   .then(data => {
     res.redirect('/')
   }).catch(err => {
@@ -119,7 +120,7 @@ exports.allowSolicitation = async(req, res, next) => {
   if (req.body.allow) { 
   Solicitation.findOneAndUpdate({suitorUsername: req.body.allow, toRecipient: req.session.user.username}, {
     allow: true
-  }, {new: true})
+  }, {new: true}).exec()
     .then(solicitation => {
       if(!solicitation) {
         return res.status(404).send({
@@ -131,7 +132,7 @@ exports.allowSolicitation = async(req, res, next) => {
     to:   req.session.user.username
   })
   // Save Friend in the database
-  friend.save()
+  friend.save().exec()
   .then(data => {
   })
     User.findOneAndUpdate({ username: req.session.user.username}, {
@@ -161,7 +162,7 @@ exports.disallowSolicitation = async(req, res) => {
   // Validate Request
   if (req.body.disallow) { 
   // Find user and update it with the request body
-  Solicitation.remove({suitorUsername: req.body.disallow, toRecipient: req.session.user.username})
+  Solicitation.remove({suitorUsername: req.body.disallow, toRecipient: req.session.user.username}).exec()
    .then(solicitation => {
       setInterval(function(){ res.redirect('/api/dashboard')}, 3000)
     })
@@ -186,7 +187,7 @@ exports.viewDashboard = async(req, res) => {
         content: news[i],
         tags: ['UFES', req.session.user.location.addressState ]
       })
-      information.save()
+      information.save().exec()
         .then(informations => {
           }).catch(err => {
             res.status(500)
@@ -198,7 +199,7 @@ exports.viewDashboard = async(req, res) => {
     })
 
 let users
-  User.find().sort( [['username', 'ascending']] )
+  User.find().sort( [['username', 'ascending']] ).exec()
    .then(usersOf => {
       users = usersOf
     }).catch(err => {
@@ -206,7 +207,7 @@ let users
   })
 
 let informationsUfes
-  Information.find({tags: 'UFES'}).sort( [['datePublished', 'desc']] )
+  Information.find({tags: 'UFES'}).sort( [['datePublished', 'desc']] ).exec()
    .then(informationsOfUfes => {
       informationsUfes = informationsOfUfes
     }).catch(err => {
@@ -214,7 +215,7 @@ let informationsUfes
   })
 
 let informationsIfes
-  Information.find({tags: 'IFES'})
+  Information.find({tags: 'IFES'}).exec()
    .then(informationsOfIfes => {
       informationsIfes = informationsOfIfes
     }).catch(err => {
@@ -222,11 +223,11 @@ let informationsIfes
   })
 
 let solicitation = 
-  Solicitation.find({ toRecipient: req.session.user.username }).then(solicitations =>{ solicitation = solicitations})
+  Solicitation.find({ toRecipient: req.session.user.username }).exec().then(solicitations =>{ solicitation = solicitations})
   // let query = {creator: req.session.user._id }
 let query = {toRecipient: req.session.user.username }
   // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
-  Message.find(query).sort( [['data', 'descending']] ).limit(30)
+  Message.find(query).sort( [['data', 'descending']] ).limit(30).exec()
     .then(messages => {
       res.render('user/dashboard', { 
         account: { 
@@ -267,7 +268,7 @@ exports.viewUserProfile = async(req, res) => {
   }
   // TODO: GAMBIARRA> Retornando 'header.css' como params._id
 let solicitations
-  Solicitation.find()
+  Solicitation.find().exec()
    .then(solicitationOf => {
       solicitations = solicitationOf
     }).catch(err => {
@@ -279,7 +280,7 @@ let solicitation =
   let query = {toRecipient: req.session.user.username }
   // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
   let messagesMe
-  Message.find(query).sort( [['data', 'descending']] )
+  Message.find(query).sort( [['data', 'descending']] ).exec()
     .then(messages => {
       messagesMe = messages
     })
@@ -287,21 +288,21 @@ let solicitation =
       res.status(500)
     })
 let friends
-  Friend.find().sort( [['username', 'ascending']] )
+  Friend.find().sort( [['username', 'ascending']] ).exec()
    .then(friendsOf => {
       friends = friendsOf
     }).catch(err => {
       res.status(500)
   })
 let groups
-  Group.find().sort( [['nickname', 'ascending']] )
+  Group.find().sort( [['nickname', 'ascending']] ).exec()
    .then(groupsOf => {
       groups = groupsOf
     }).catch(err => {
       res.status(500)
   })
 // Display an alert notification
-  User.findOne({_id: idUser})
+  User.findOne({_id: idUser}).exec()
    .then(user => {
       res.render('user/userProfile', { 
         account: { 
@@ -355,7 +356,7 @@ passport.authenticate('local')
     let  statusUser = req.session.user.status
     let query = {username: req.session.user.username, password: req.session.user.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
-    User.findOne(query)
+    User.findOne(query).exec()
       .then(user => {
         // const token = jwt.sign(user, {
         //   expiresIn: 604800, // 1 semana
@@ -414,7 +415,8 @@ exports.editUser = async(req, res) => {
 }
 // Delete a user with the specified userId in the request
 exports.delete = (req, res) => {
-  User.findByIdAndRemove(req.params.userId)
+  va _id = sanitize(req.params.id)
+  User.findByIdAndRemove(_id).exec()
    .then(user => {
     if(!user) {
       return res.status(404).send({
