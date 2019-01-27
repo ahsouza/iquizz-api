@@ -18,7 +18,7 @@ const
  Pusher = require('pusher'),
  bcrypt = require('bcryptjs'),
  passport = require('passport'),
- jwt = require('jsonwebtoken')
+ jwt = require('jsonwebtoken'),
  config = require('../config/jwt.js')
 
   

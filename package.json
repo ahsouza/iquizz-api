@@ -9,7 +9,6 @@
     "@material/select": "^0.41.0",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
-    "bcrypt-nodejs": "0.0.3",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.16.1",
     "cheerio": "^1.0.0-rc.2",
