@@ -49,7 +49,11 @@ app.use((req, res, next) => {
   res.locals.session = req.session 
   next() 
 })
-
+ require('../routes/user.js')(app)
+ require('../routes/message.js')(app)
+ require('../routes/group.js')(app)
+ require('../routes/conquest.js')(app)
+ require('../routes/quiz.js')(app)
 // app.use(morgan(':username :remote-addr [:date[web]] ":method :url :referrer :status '))
 // app.use(morganToolkit())
 app.use(passport.initialize())
