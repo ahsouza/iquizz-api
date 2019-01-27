@@ -5,7 +5,7 @@
 
     var serverUrl = "/",
         members = [],
-        pusher = new Pusher('X}', {
+        pusher = new Pusher('5d209a3e1d94f71a507a', {
           authEndpoint: '/api/auth',
           encrypted: true
         }),
