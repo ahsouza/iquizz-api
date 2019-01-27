@@ -1,5 +1,6 @@
 /node_modules
 /config/pusher.js
+/config/passport-strategy.js
 /sessions
 /models/db.users.insert
 /models/untitled.js

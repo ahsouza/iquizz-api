@@ -15,7 +15,12 @@ const
  rp = require('request-promise'),
  cheerio = require('cheerio'),
  pusherUser = require('../config/pusher.js'),
- Pusher = require('pusher')
+ Pusher = require('pusher'),
+ bcrypt = require('bcryptjs'),
+ passport = require('passport'),
+ jwt = require('jsonwebtoken')
+ config = require('../config/jwt.js')
+
   
 var pusher = new Pusher({
   appId: pusherUser.appId,
@@ -83,6 +88,13 @@ exports.newUser = async(req, res) => {
       postalCode: req.body.cep,
     }
   })
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(user.password, salt, (err, hash) => {
+      user.password = hash
+      user.save()
+    })
+  })
+
   // Save User in the database
   user.save()
   .then(data => {
@@ -94,6 +106,7 @@ exports.newUser = async(req, res) => {
     res.render("/", {'errors': [{'msg': error.err}]})
   })
 }
+
 exports.loggedIn = async(req, res) => {
   if(req.session.user){
     res.send({ 
@@ -118,7 +131,7 @@ exports.allowSolicitation = async(req, res, next) => {
     from:   req.body.allow,
     to:   req.session.user.username
   })
-  // Save User in the database
+  // Save Friend in the database
   friend.save()
   .then(data => {
   })
@@ -306,12 +319,50 @@ let groups
   })
 }
 exports.auth = async(req, res) => {
+
+var LocalStrategy = require('passport-local').Strategy
+passport.use(new LocalStrategy(
+  (username, password, done) => {
+    User.getUserByUsername(username, (err, user) =>{
+      if(err) throw err;
+      if(!user){
+         return done(null, false, {message: 'Usuário desconhecido'})
+      }
+
+      User.comparePassword(password, user.password, (err, isMatch) => {
+        if(err) throw err;
+        if(isMatch){
+          return done(null, user)
+        } else {
+          return done(null, false, {message: 'Senha inválida!'})
+        }
+      })
+   })
+  }
+))
+
+passport.serializeUser( (user, done) => {
+  done(null, user.id)
+})
+
+passport.deserializeUser((id, done) => {
+  User.getUserById(id, (err, user) => {
+    done(err, user)
+  })
+})
+passport.authenticate('local')
+
   if  ((req.session.user.username != "undefined") && (req.session.user.password != "undefined")) {
-let  statusUser = req.session.user.status
-let query = {username: req.session.user.username, password: req.session.user.password}
+    
+    let  statusUser = req.session.user.status
+    let query = {username: req.session.user.username, password: req.session.user.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
     User.findOne(query)
       .then(user => {
+        // const token = jwt.sign(user, {
+        //   expiresIn: 604800, // 1 semana
+        //   secret: 'Segredo aqui'
+        // })
         req.session.user = user
         req.session.user.memberOf.group = req.body.group
         var socketId = req.body.socket_id
@@ -329,6 +380,10 @@ let query = {username: req.session.user.username, password: req.session.user.pas
         res.redirect('/api/new')
      })
   } 
+
+
+
+
 }
 
 exports.viewEdit = async(req, res) => {

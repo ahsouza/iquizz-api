@@ -1,5 +1,7 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose'),
+ Schema = mongoose.Schema,
+ bcrypt = require('bcryptjs'),
+ findOrCreate = require('mongoose-findorcreate')
 
 const user = mongoose.Schema({  
   username: { type: String, required: true, index: {unique: true}},
@@ -87,6 +89,8 @@ const user = mongoose.Schema({
   dateModified: { type: Date, default: Date.now }
 
 }, {timestamps: true}, {collection: 'users'})
+
+user.plugin(findOrCreate)
 
 module.exports = mongoose.model('User', user)
 //TODO Implementação de Token para usuários hash: { type: String, required: true },

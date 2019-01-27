@@ -1,20 +1,13 @@
 <!DOCTYPE>
 <html>
     <head>
-        <title>IQuizz in Realtime !</title>
+        <title>IQuizz API</title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200">
         <link rel="stylesheet" href="./style.css"
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-
-
-
-
-
     </head>
     <body>
         <header id="header">
@@ -32,16 +25,10 @@
             <div id="logout" class="logout">
                <a href="/logout">Logout</a>
             </div>
-            
-
         </header>
         <section class="subheader" id="subheader">
             <img class="whatsup-logo" src="./assets/whatsup.png" />
             <h2>Pessoas online</h2>
-
-
-            
-
         </section>
 
         <section>
@@ -80,12 +67,14 @@
     <!-- ===== 2 DIV ===== -->
     <div class="mdl-cell mdl-cell--4-col">
 
+<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/auth/google">
+    
+  </a>
               <div id="signup-form" class="tab-content">
                 <div class="header" style="margin-top: 100px;">
                     <a href="/api/new"><div><img src="./assets/comments.png"></div></a>
                     <div class="text">Inscreva-se!</div>
                 </div>
-
                 <form  id="user-form">
                     <div class="signup-form">
                         <div class="left-side">
@@ -106,24 +95,33 @@
                           <br/>
                           
 
+
                         </div>
                         <div class="right-side" style="float: right; margin-right: 130px;">
 
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                               Entrar
-                            </button>           
+                            </button>   
+
+                           <a href="/auth/google"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                              Entrar com Google <span style="font-size: 16px; color: red;"><i class="fab fa-google-plus"></i></span>
+                            </button>     </a>
                         </div>
                     </div>
                 </form>
+
+
+  
+
+
+
             </div>
     </div>
     <!-- ===== 3 DIV ===== -->
     <div class="mdl-cell mdl-cell--2-col"></div>
 
 </div>
-
 </section>
-
   <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
   <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
   <script type="text/javascript" src="./app.js"></script>
