@@ -4,5 +4,5 @@
 /sessions
 /models/db.users.insert
 /models/untitled.js
-
+/public/app.js
 package-lock.json
