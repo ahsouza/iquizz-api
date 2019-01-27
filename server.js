@@ -1,6 +1,6 @@
 var app = require('./config/express')()
 
-require('./config/database.js')(config.uri)
+require('./config/database.js')(config.db)
 
 module.exports = app
 app.listen(process.env.PORT || 5000, () =>{
