@@ -2,8 +2,12 @@
   "name": "iquizzApi",
   "version": "0.0.1",
   "description": "IQuizz API ",
+  "repository": "https://github.com/ahsouza/iquizz-api",
   "main": "server.js",
   "author": "@ahsouza <annibalhsouza@gmail.com>",
+  "scripts": {
+     "paral": "node clusters"
+  },
   "dependencies": {
     "@material/elevation": "^0.41.0",
     "@material/select": "^0.41.0",

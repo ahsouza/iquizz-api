@@ -34,7 +34,7 @@ exports.registerMemberChat = async(req, res) => {
   if  ((req.body.username != "") && (req.body.password != "")) {
     let query = {username: req.body.username, password: req.body.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
-    User.findOne(query).exec()
+    User.findOne(query)
       .then(user => {
         if(req.body.username && req.body.status){
         var newMember = {
@@ -319,44 +319,11 @@ let groups
   })
 }
 exports.auth = async(req, res) => {
-
-var LocalStrategy = require('passport-local').Strategy
-passport.use(new LocalStrategy(
-  (username, password, done) => {
-    User.getUserByUsername(username, (err, user) =>{
-      if(err) throw err;
-      if(!user){
-         return done(null, false, {message: 'Usuário desconhecido'})
-      }
-
-      User.comparePassword(password, user.password, (err, isMatch) => {
-        if(err) throw err;
-        if(isMatch){
-          return done(null, user)
-        } else {
-          return done(null, false, {message: 'Senha inválida!'})
-        }
-      })
-   })
-  }
-))
-
-passport.serializeUser( (user, done) => {
-  done(null, user.id)
-})
-
-passport.deserializeUser((id, done) => {
-  User.getUserById(id, (err, user) => {
-    done(err, user)
-  })
-})
-passport.authenticate('local')
-
   if  ((req.session.user.username != "undefined") && (req.session.user.password != "undefined")) {
-    let  statusUser = req.session.user.status
+    let statusUser = req.session.user.status
     let query = {username: req.session.user.username, password: req.session.user.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
-    User.findOne(query).exec()
+    User.findOne(query)
       .then(user => {
         // const token = jwt.sign(user, {
         //   expiresIn: 604800, // 1 semana

@@ -5,7 +5,7 @@
 
     var serverUrl = "/",
         members = [],
-        pusher = new Pusher('5d209a3e1d94f71a507a', {
+        pusher = new Pusher('x}', {
           authEndpoint: '/api/auth',
           encrypted: true
         }),
@@ -86,80 +86,78 @@
 
     function onMemberAddSuccess(response){
         // On Success of registering a new member
-        console.log("Success: " + response);
-        userForm.reset();
-        updateUserViewState(true);
+        console.log("Success: " + response)
+        userForm.reset()
+        updateUserViewState(true)
         // Subscribing to the 'presence-members' Channel
-        channel = pusher.subscribe('presence-whatsup-members');
-        bindChannelEvents(channel);
+        channel = pusher.subscribe('presence-whatsup-members')
+        bindChannelEvents(channel)
     }
-
     // Binding to Pusher Events on our 'presence-whatsup-members' Channel
-    
     function bindChannelEvents(channel){
-      channel.bind('client-status-update',statusUpdated);
+      channel.bind('client-status-update',statusUpdated)
       var reRenderMembers = function(member){
-        renderMembers(channel.members);
+        renderMembers(channel.members)
       }
-      channel.bind('pusher:subscription_succeeded', reRenderMembers);
-      channel.bind('pusher:member_added', reRenderMembers);
-      channel.bind('pusher:member_removed', reRenderMembers);
+      channel.bind('pusher:subscription_succeeded', reRenderMembers)
+      channel.bind('pusher:member_added', reRenderMembers)
+      channel.bind('pusher:member_removed', reRenderMembers)
     }
 
     // Render the list of members with updated data & also render the logged in user component
 
     function renderMembers(channelMembers){
-      var members = channelMembers.members;
-      var membersListNode = document.createElement('div');
-      showEle('membersList');
+      var members = channelMembers.members
+      var membersListNode = document.createElement('div')
+      showEle('membersList')
 
       Object.keys(members).map(function(currentMember){
         if(currentMember !== channelMembers.me.id){
-          var currentMemberHtml = memberTemplateStr;
-          currentMemberHtml = currentMemberHtml.replace('{{username}}',currentMember);
-          currentMemberHtml = currentMemberHtml.replace('{{status}}',members[currentMember].status);
-          currentMemberHtml = currentMemberHtml.replace('{{time}}','');
-          var newMemberNode = document.createElement('div');
-          newMemberNode.classList.add('member');
-          newMemberNode.setAttribute("id","user-"+currentMember);
-          newMemberNode.innerHTML = currentMemberHtml;
-          membersListNode.appendChild(newMemberNode);
+          var currentMemberHtml = memberTemplateStr
+          currentMemberHtml = currentMemberHtml.replace('{{username}}',currentMember)
+          currentMemberHtml = currentMemberHtml.replace('{{status}}',members[currentMember].status)
+          currentMemberHtml = currentMemberHtml.replace('{{time}}','')
+          var newMemberNode = document.createElement('div')
+          newMemberNode.classList.add('member')
+          newMemberNode.setAttribute("id","user-"+currentMember)
+          newMemberNode.innerHTML = currentMemberHtml
+          membersListNode.appendChild(newMemberNode)
         }
-      });
-      renderMe(channelMembers.me);
-      document.getElementById("membersList").innerHTML = membersListNode.innerHTML;
+      })
+      renderMe(channelMembers.me)
+      document.getElementById("membersList").innerHTML = membersListNode.innerHTML
     }
     
 
     function renderMe(myObj){
-      document.getElementById('myusername').innerHTML = myObj.id;
-      document.getElementById('mystatus').innerHTML = myObj.info.status;
+      document.getElementById('myusername').innerHTML = myObj.id
+      document.getElementById('mystatus').innerHTML = myObj.info.status
     }
 
     // On Blur of editting my status update the status by sending pusher event
-    document.getElementById('mystatus').addEventListener('blur',sendStatusUpdateReq);
+    document.getElementById('mystatus').addEventListener('blur',sendStatusUpdateReq)
 
     function sendStatusUpdateReq(event){
-      var newStatus = document.getElementById('mystatus').innerHTML;
-      var username = document.getElementById('myusername').innerText;
+      var newStatus = document.getElementById('mystatus').innerHTML
+      var username = document.getElementById('myusername').innerText
       channel.trigger("client-status-update", {
         username: username,
         status: newStatus
-      });
+      })
     }
 
     // New Update Event Handler
     // We will take the Comment Template, replace placeholders & append to commentsList
     function statusUpdated(data){
       var updatedMemberHtml = memberTemplateStr;
-          updatedMemberHtml = updatedMemberHtml.replace('{{username}}',data.username);
-          updatedMemberHtml = updatedMemberHtml.replace('{{status}}',data.status);
-          updatedMemberHtml = updatedMemberHtml.replace('{{time}}','just now');
-      document.getElementById("user-"+data.username).style.color = '#1B8D98';    
-      document.getElementById("user-"+data.username).innerHTML=updatedMemberHtml;
+          updatedMemberHtml = updatedMemberHtml.replace('{{username}}',data.username)
+          updatedMemberHtml = updatedMemberHtml.replace('{{status}}',data.status)
+          updatedMemberHtml = updatedMemberHtml.replace('{{time}}','just now')
+      document.getElementById("user-"+data.username).style.color = '#1B8D98' 
+      document.getElementById("user-"+data.username).innerHTML=updatedMemberHtml
       setTimeout(function(){
-        document.getElementById("user-"+data.username).style.color = '#000';
-      },500);
+        document.getElementById("user-"+data.username).style.color = '#000'
+      },500)
     }
 
-})();
+})()

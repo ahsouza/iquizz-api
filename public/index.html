@@ -8,8 +8,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
     </head>
-    <body>
+    <body  style="background-color: #2962ff">
         <header id="header">
 
           <a href="/api/dashboard" id="dashboard">
@@ -67,58 +68,48 @@
     <!-- ===== 2 DIV ===== -->
     <div class="mdl-cell mdl-cell--4-col">
 
-<a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="/auth/google">
-    
-  </a>
-              <div id="signup-form" class="tab-content">
+              <div id="signup-form" class="tab-content animated fadeIn">
                 <div class="header" style="margin-top: 100px;">
-                    <a href="/api/new"><div><img src="./assets/comments.png"></div></a>
-                    <div class="text">Inscreva-se!</div>
+                    <a href="/api/new"><div style="color: #fff"><img src="./assets/comments.png">&nbsp;&nbsp;Inscreva-se</div></a>
                 </div>
-                <form  id="user-form">
+                <br>
+                <form  id="user-form" >
                     <div class="signup-form">
                         <div class="left-side">
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username" >
-                            <input class="mdl-textfield__input" type="text" required name="username" id="display_name">
-                            <label class="mdl-textfield__label"  for="display_name">Username</label>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
+                            <input class="mdl-textfield__input" type="text" required name="username" id="display_name" style="border-color:#fff; color: #fff">
+                            <label class="mdl-textfield__label" for="display_name" style="color: #fff">Username</label>
                           </div>
 
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-password" style="color: darkblue;">
-                            <input class="mdl-textfield__input" type="password" required name="password" id="password">
-                            <label class="mdl-textfield__label" for="password">Senha</label>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
+                            <input class="mdl-textfield__input" type="password" required name="password" id="password" style="border-color:#fff; color: #fff">
+                            <label class="mdl-textfield__label"  for="display_name" style="color: #fff">Senha</label>
                           </div>
 
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-status" style="color: green;">
+               
+
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-status" style="border-color:#fff; color: green;">
                             <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status"></textarea>
                             <label class="mdl-textfield__label" for="initial_status">Status</label>
                           </div>
                           <br/>
-                          
-
 
                         </div>
                         <div class="right-side" style="float: right; margin-right: 130px;">
-
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                          <br><br>
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color: #fff; color: blue ">
                               Entrar
                             </button>   
 
-                           <a href="/auth/google"> <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                              Entrar com Google <span style="font-size: 16px; color: red;"><i class="fab fa-google-plus"></i></span>
-                            </button>     </a>
                         </div>
                     </div>
                 </form>
 
 
-  
-
-
-
-            </div>
+      </div>
     </div>
     <!-- ===== 3 DIV ===== -->
-    <div class="mdl-cell mdl-cell--2-col"></div>
+    <div class="mdl-cell mdl-cell--4-col"></div>
 
 </div>
 </section>
