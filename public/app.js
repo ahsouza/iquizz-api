@@ -5,7 +5,7 @@
 
     var serverUrl = "/",
         members = [],
-        pusher = new Pusher('x}', {
+        pusher = new Pusher('5d209a3e1d94f71a507a', {
           authEndpoint: '/api/auth',
           encrypted: true
         }),
@@ -67,8 +67,6 @@
         document.getElementById("logout").style.display = "none";
         document.getElementById("signup-form").style.display = "none";
     }
-
-
     // Adding a new Member Form Submit Event
     userForm.addEventListener("submit", addNewMember);
 

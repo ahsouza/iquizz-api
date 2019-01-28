@@ -4,13 +4,311 @@
         <title>IQuizz API</title>
         <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:200">
-        <link rel="stylesheet" href="./style.css"
+        <link rel="stylesheet" href="./css/style.css"
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+        <style>
+          @import "@material/select/mdc-select";
+/* Extra-small */
+/* SMALL DEVICES (landscape, 576px and up) */
+@media (min-width: 576px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* SMALL DEVICES ONLY! */
+@media screen and (min-width: 576px) and (max-width: 767px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* MEDIUM DEVICES (tablets, 768px and up) */
+@media (min-width: 768px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* MEDIUM DEVICES ONLY! */
+@media screen and (min-width: 768px) and (max-width: 991px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* LARGE DEVICES (desktops, 992px and up) */
+@media (min-width: 992px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* LARGE DEVICES ONLY! */
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+    body {
+      background-color: orange; 
+    }
+}
+
+/* EXTRA LARGE DEVICES (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+    body{
+      margin:0;
+      background-color: pink;
+      back:0;
+      padding:0;
+      overflow: hidden;
+      font-family: Raleway;
+      line-height: 1.5;
+      font-family: 'Lato';
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+}
+
+* {
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+}
+
+body{
+  margin:0;
+  background-color: #2962ff;
+  back:0;
+  padding:0;
+  overflow: hidden;
+  font-family: Raleway;
+  line-height: 1.5;
+  font-family: 'Lato';
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+header{
+    background: #2b303b;
+    height: 50px;
+    width:100%;
+    display: flex;
+    color:#fff;
+}
+#dashboard {
+  color:white;
+}
+.loader,
+.loader:after {
+  border-radius: 50%;
+  width: 6em;
+  height: 6em;
+}
+.loader {
+  margin: 200px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  border-top: 0.5em solid rgba(82,0,115, 0.2);
+  border-right: 0.5em solid rgba(82,0,115, 0.2);
+  border-bottom: 0.5em solid rgba(82,0,115, 0.2);
+  border-left: 0.5em solid #e91e63;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 1.1s infinite linear;
+  animation: load8 1.1s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+
+.subheader{
+    display: flex;
+    align-items: center;
+    margin: 0px;
+}
+
+.whatsup-logo{
+    height:60px;
+    border-radius: 8px;
+    flex:0 60px;
+    margin-right: 15px;
+}
+.btn-enter {
+  box-shadow: 0 8px 14px rgba(0,0,0,0.25), 0 6px 6px rgba(0,0,0,0.22);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.btn-enter:hover {
+  top: -2px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+}
+
+.input-username:active {
+ color: #fff;
+ border-color: #fff;
+}
+
+.input-password {
+ color: darkblue;
+ border-color: #fff;
+}
+
+.input-password:active {
+ color: darkblue;
+ border-color: #fff;
+}
+
+.input-status {
+ color: green;
+ border-color: #fff;
+}
+
+
+.logout{
+  flex:1;
+  justify-content: flex-end;
+  padding:15px;
+  display: none;
+}
+
+.logout a{
+  color:#fff;
+  text-decoration: none;
+}
+
+#signup-form{
+    display: none;
+}
+
+input, textarea{
+  width:100%;
+
+}
+
+.mdl-textfield__input {
+    border-color: pink;
+    box-shadow: none;
+}
+
+section{
+    padding: 0px 15px;
+}
+
+.logo img{
+    height: 35px;
+    padding: 6px;
+    margin-left: 20px;
+}
+
+#updateStatus{
+    display: none;
+}
+
+.members-list{
+    display: none;
+    flex-direction: column;
+}
+
+.me {
+  display: none;
+}
+
+.me {
+    border:1px solid #aeaeae;
+    padding:10px;
+    margin:10px;
+    border-radius: 10px;
+
+}
+
+.me img{
+    height: 40px;
+    width: 40px;
+}
+
+.me .status{
+    padding:5px;
+    flex:1;
+}
+
+.me .status .username{
+    font-size:13px;
+    color: #aeaeae;
+    margin-bottom:5px;
+}
+
+.me .status .text{
+    font-size: 15px;
+    width:100%;
+    -webkit-transition: all 1s ease-in 5ms;
+    -moz-transition: all 1s ease-in 5ms;
+    transition: all 1s ease-in 5ms;
+}
+
+.member{
+    display: flex;
+    border-bottom: 1px solid #aeaeae;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.member .user-icon{
+    flex:0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.member .user-icon img{
+    width:50px;
+    height:50px;
+}
+
+.member .user-info{
+    padding:5px;
+    margin-left:10px;
+}
+
+.member .user-info .name{
+    font-weight: bold;
+    font-size: 16px;
+    padding-bottom:5px;
+}
+
+.member .user-info .status{
+    font-weight: normal;
+    font-size:13px;
+}
+
+.member .user-info .time{
+    font-weight: normal;
+    font-size:10px;
+    color:#aeaeae;
+}
+        </style>   
     </head>
-    <body  style="background-color: #2962ff">
+    <body>
         <header id="header">
 
           <a href="/api/dashboard" id="dashboard">
@@ -42,9 +340,9 @@
                 </div>
                 <div class="user-info">
                     <div class="row">
-                        <div class="name">{{username}}</div>
+                        <!-- <div class="name">{{username}}</div>
                         <div class="status">{{status}}</div>
-                        <div class="time">{{time}}</div>
+                        <div class="time">{{time}}</div> -->
                     </div>
                 </div>
             </script>
@@ -73,31 +371,29 @@
                     <a href="/api/new"><div style="color: #fff"><img src="./assets/comments.png">&nbsp;&nbsp;Inscreva-se</div></a>
                 </div>
                 <br>
-                <form  id="user-form" >
-                    <div class="signup-form">
-                        <div class="left-side">
+                <form  id="user-form">
+                    <div class="signup-form" >
+                        <div class="left-side" >
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
                             <input class="mdl-textfield__input" type="text" required name="username" id="display_name" style="border-color:#fff; color: #fff">
                             <label class="mdl-textfield__label" for="display_name" style="color: #fff">Username</label>
                           </div>
-
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
                             <input class="mdl-textfield__input" type="password" required name="password" id="password" style="border-color:#fff; color: #fff">
                             <label class="mdl-textfield__label"  for="display_name" style="color: #fff">Senha</label>
                           </div>
 
-               
-
-                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-status" style="border-color:#fff; color: green;">
-                            <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status"></textarea>
-                            <label class="mdl-textfield__label" for="initial_status">Status</label>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
+                            <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status" style="border-color:#fff; color: #76ff03"></textarea>
+                            <label class="mdl-textfield__label" for="initial_status" style="color: #fff">Status</label>
                           </div>
+
                           <br/>
 
                         </div>
                         <div class="right-side" style="float: right; margin-right: 130px;">
                           <br><br>
-                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="background-color: #fff; color: blue ">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored btn-enter" style="background-color: #fff; color: blue ">
                               Entrar
                             </button>   
 

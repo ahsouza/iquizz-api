@@ -31,6 +31,7 @@ var pusher = new Pusher({
 })
 
 exports.registerMemberChat = async(req, res) => {
+  console.log(pusher)
   if  ((req.body.username != "") && (req.body.password != "")) {
     let query = {username: req.body.username, password: req.body.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
@@ -320,6 +321,7 @@ let groups
 }
 exports.auth = async(req, res) => {
   if  ((req.session.user.username != "undefined") && (req.session.user.password != "undefined")) {
+    console.log('/REGISTER:   REQ BODY >   ' + req.body.username);
     let statusUser = req.session.user.status
     let query = {username: req.session.user.username, password: req.session.user.password}
     // user.findById(req.params.userId).select('password username firstNam').exec(function(error, user){
