@@ -5,4 +5,5 @@
 /models/db.users.insert
 /models/untitled.js
 /public/app.js
+/public/*.js
 package-lock.json
