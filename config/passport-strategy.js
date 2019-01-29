@@ -2,7 +2,7 @@
 var 
  passport = require('passport'),
  GitHubStrategy = require('passport-github').Strategy,
- mongoose = require('mongoose')
+ mongoose = require('mongoose'),
  config = require('./config.js')
 
 module.exports = () => {
