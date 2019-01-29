@@ -31,7 +31,7 @@ const fileStore = require('session-file-store')(expressSession),
 
 module.exports = () => {
 var app = express()
-// app.use(require('method-override')())
+app.use(require('method-override')())
 app.use(cookieParser())
 app.use(expressSession({
   genid: (req) => {
@@ -49,8 +49,8 @@ app.use(expressSession({
 // })
 // app.use(morgan(':username :remote-addr [:date[web]] ":method :url :referrer :status '))
 // app.use(morganToolkit())
-// app.use(passport.initialize())
-// app.use(passport.session())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(flash())
 app.use(cors())
 app.use(flash(connectFlash))

@@ -5,7 +5,7 @@
 
     var serverUrl = "/",
         members = [],
-        pusher = new Pusher('5d209a3e1d94f71a507a', {
+        pusher = new Pusher('x}', {
           authEndpoint: '/api/auth',
           encrypted: true
         }),
@@ -47,14 +47,16 @@
       document.getElementById("loader").style.display = "none";
       if(isLoggedIn){
         document.getElementById("logout").style.display = "flex";
-        document.getElementById("dashboard").style.display = "flex";
+        document.getElementById("card-filosophy").style.display = "flex";
+        document.getElementById("menu-button").style.display = "flex";
         document.getElementById("subheader").style.display = "flex";
         document.getElementById("header").style.display = "flex";
         document.getElementById("me").style.display = "flex";
         document.getElementById("signup-form").style.display = "none";
       }else{
         document.getElementById("logout").style.display = "none";
-        document.getElementById("dashboard").style.display = "none";
+        document.getElementById("card-filosophy").style.display = "none";
+        document.getElementById("menu-button").style.display = "none";
         document.getElementById("header").style.display = "none";
         document.getElementById("subheader").style.display = "none";
         document.getElementById("me").style.display = "none";

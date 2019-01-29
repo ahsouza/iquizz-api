@@ -9,6 +9,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
         <style>
           @import "@material/select/mdc-select";
 /* Extra-small */
@@ -99,6 +101,8 @@ header{
 }
 #dashboard {
   color:white;
+  margin: 47%;
+  font-size: 40px;
 }
 .loader,
 .loader:after {
@@ -306,16 +310,140 @@ section{
     font-size:10px;
     color:#aeaeae;
 }
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 32px;
+  color: #212121;
+  padding: 100px 50px 50px 50px;
+  text-align: center;
+  line-height: 135%;
+}
+
+.menu-button {
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  transition: 0.4s;
+  position: absolute;
+  right: 50px;
+  bottom: 50px;
+  width: 60px;
+  height: 60px;
+  text-align: center;
+  line-height: 60px;
+  border-radius: 50%;
+  background-color: #E91E63;
+  color: #FFFFFF;
+  font-size: 24px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+.menu-button:hover {
+  background: #d81558;
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.28), 0 4px 15px 0 rgba(0, 0, 0, 0.25);
+}
+.menu-button a {
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  transition: 0.4s;
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 50%;
+  color: #FFFFFF;
+  font-size: 24px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26), 0 2px 10px 0 rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+}
+.menu-button a:hover {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.28), 0 4px 15px 0 rgba(0, 0, 0, 0.25);
+}
+.menu-button a:nth-child(2) {
+  -webkit-transition-delay: 0.3s;
+  -moz-transition-delay: 0.3s;
+  transition-delay: 0.3s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background: #55acee;
+}
+.menu-button a:nth-child(3) {
+  -webkit-transition-delay: 0.4s;
+  -moz-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background: #dc4e41;
+}
+.menu-button a:nth-child(4) {
+  -webkit-transition-delay: 0.5s;
+  -moz-transition-delay: 0.5s;
+  transition-delay: 0.5s;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+  background: #3F3F3F;
+}
+.menu-button:hover a {
+  opacity: 1;
+  width: 50px;
+  height: 50px;
+}
+.menu-button:hover a:nth-child(2) {
+  right: 80px;
+  bottom: 0px;
+}
+.menu-button:hover a:nth-child(2):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: #3ea1ec;
+}
+.menu-button:hover a:nth-child(3) {
+  right: 65px;
+  bottom: 65px;
+}
+.menu-button:hover a:nth-child(3):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: #d83a2b;
+}
+.menu-button:hover a:nth-child(4) {
+  right: 0px;
+  bottom: 80px;
+}
+.menu-button:hover a:nth-child(4):hover {
+  -webkit-transition-delay: 0s;
+  -moz-transition-delay: 0s;
+  transition-delay: 0s;
+  background: #323232;
+}
+
+/*---FOR MOBILE VIEW---*/
+@media screen and (max-width: 400px) {
+  h1 {
+    padding: 15px;
+    font-size: 25px;
+  }
+}
+
+
+
+
+
+
+
         </style>   
     </head>
     <body>
         <header id="header">
 
-          <a href="/api/dashboard" id="dashboard">
-            <button class="mdl-button mdl-js-button mdl-button--raised" type="submit" style="color:white;"><i class="material-icons" style="color:white">
-            home
-            </i>    DASHBOARD</button>
-          </a>
+          
             <!-- <div class="logo">
                 <img src="./assets/pusher-logo.png" />
             </div> -->
@@ -326,8 +454,6 @@ section{
             </div>
         </header>
         <section class="subheader" id="subheader">
-            <img class="whatsup-logo" src="./assets/whatsup.png" />
-            <h2>Pessoas online</h2>
         </section>
 
         <section>
@@ -340,9 +466,9 @@ section{
                 </div>
                 <div class="user-info">
                     <div class="row">
-                        <!-- <div class="name">{{username}}</div>
+                        <div class="name">{{username}}</div>
                         <div class="status">{{status}}</div>
-                        <div class="time">{{time}}</div> -->
+                        <div class="time">{{time}}</div>
                     </div>
                 </div>
             </script>
@@ -358,6 +484,64 @@ section{
 
            <div id="membersList" class="members-list">
            </div>
+
+          
+
+
+
+
+
+
+<div class="menu-button" id="menu-button">
+  <i class="zmdi zmdi-play" style="font-size: 60px; margin-left: 20px;"></i>
+  <a href="/logout"><i class="zmdi zmdi-sign-in" style="font-size: 36px; margin-top: 8px;"></i> </a>
+  <a href="/api/quiz"><i class="zmdi zmdi-gamepad" style="font-size: 38px; margin-top: 6px;"></i></a>
+  <a href="/api/dashboard"><i class="zmdi zmdi-home" style="font-size: 40px; margin-top: 4px;"></i></a>
+</div>
+
+
+
+
+
+
+
+           <style>
+.demo-card-wide.mdl-card {
+  width: 512px;
+}
+.demo-card-wide > .mdl-card__title {
+  color: #fff;
+  height: 176px;
+  background: url('../assets/demos/welcome_card.jpg') center / cover;
+}
+.demo-card-wide > .mdl-card__menu {
+  color: #fff;
+}
+.demo-card-wide{
+  margin-left: 30%;
+  margin-top: 10%;
+}
+</style>
+
+<div class="demo-card-wide mdl-card mdl-shadow--2dp animated fadeInLeft delay-1s" id="card-filosophy">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text">Welcome</h2>
+  </div>
+  <div class="mdl-card__supporting-text">
+    " O mundo é um lugar perigoso de se viver, não por causa daqueles que fazem o mal, mas sim por causa daqueles que observam e deixam o mal acontecer."
+  </div>
+  <div class="mdl-card__actions mdl-card--border">
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab" style="margin-left: 90%; background-color: #64dd17; color: #fff; ">
+      <i class="material-icons">arrow_forward</i>
+    </button>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+      <i class="material-icons">share</i>
+    </button>
+  </div>
+</div>
+
 
 
 <div class="mdl-grid">

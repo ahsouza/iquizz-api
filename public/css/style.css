@@ -87,7 +87,10 @@ header{
 }
 #dashboard {
   color:white;
+  margin-left: 40%;
+  font-size: 
 }
+
 .loader,
 .loader:after {
   border-radius: 50%;
