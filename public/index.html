@@ -57,9 +57,9 @@
 
 <div class="menu-button" id="menu-button">
   <i class="zmdi zmdi-play" style="font-size: 60px; margin-left: 20px;"></i>
-  <a href="/logout"><i class="zmdi zmdi-sign-in" style="font-size: 36px; margin-top: 8px;"></i> </a>
-  <a href="/api/quiz"><i class="zmdi zmdi-gamepad" style="font-size: 38px; margin-top: 6px;"></i></a>
-  <a href="/api/dashboard"><i class="zmdi zmdi-home" style="font-size: 40px; margin-top: 4px;"></i></a>
+  <a href="/logout" id="logout"><i class="zmdi zmdi-sign-in" style="font-size: 36px; margin-top: 8px;"></i> </a>
+  <a href="/api/quiz" id="quiz"><i class="zmdi zmdi-gamepad" style="font-size: 38px; margin-top: 6px;"></i></a>
+  <a href="/api/dashboard" id="home"><i class="zmdi zmdi-home" style="font-size: 40px; margin-top: 4px;"></i></a>
 </div>
 
 
@@ -92,24 +92,32 @@
 
               <div id="signup-form" class="tab-content animated fadeIn">
                 <div class="header" style="margin-top: 100px;">
-                    <a href="/api/new"><div style="color: #fff"><img src="./assets/comments.png">&nbsp;&nbsp;Inscreva-se</div></a>
+                  <div class="gmd gmd-1">
+                    <!-- your countent -->
+                    <a href="/api/new"><div style="margin: 3px;color: gray; font-family: 'Roboto'; font-size: 16px;">
+                      <i class="material-icons">
+                      account_circle
+                      </i> &nbsp;&nbsp;<b>Criar perfil</b> </div>
+
+                    </a>
+                  </div>
                 </div>
                 <br>
-                <form  id="user-form">
+                <form  id="user-form" autocomplete>
                     <div class="signup-form" >
                         <div class="left-side" >
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
-                            <input class="mdl-textfield__input" type="text" required name="username" id="display_name" style="border-color:#fff; color: #fff">
-                            <label class="mdl-textfield__label" for="display_name" style="color: #fff">Username</label>
+                            <input class="mdl-textfield__input" type="text" required name="username" id="display_name" style="border-color:#fff; color: #fff" oninvalid="setCustomValidity('Por favor, preencha o nome do username')" onchange="try{setCustomValidity('')}catch(e){}"/>
+                            <label class="mdl-textfield__label" for="display_name" style="color: #fff">username</label>
                           </div>
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
-                            <input class="mdl-textfield__input" type="password" required name="password" id="password" style="border-color:#fff; color: #fff">
-                            <label class="mdl-textfield__label"  for="display_name" style="color: #fff">Senha</label>
+                            <input class="mdl-textfield__input" type="password" required name="password" id="password" style="border-color:#fff; color: #fff" oninvalid="setCustomValidity('Por favor, digite sua senha')" onchange="try{setCustomValidity('')}catch(e){}"/>
+                            <label class="mdl-textfield__label"  for="display_name" style="color: #fff">senha</label>
                           </div>
 
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label input-username">
-                            <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status" style="border-color:#fff; color: #76ff03"></textarea>
-                            <label class="mdl-textfield__label" for="initial_status" style="color: #fff">Status</label>
+                            <textarea class="mdl-textfield__input" type="text" required name="status" id="initial_status" style="border-color:#fff; color: #76ff03" oninvalid="setCustomValidity('Por favor, escreva seu status')" onchange="try{setCustomValidity('')}catch(e){}"></textarea>
+                            <label class="mdl-textfield__label" for="initial_status" style="color: #fff">status</label>
                           </div>
 
                           <br/>
@@ -123,12 +131,39 @@
                   
                         </div>
                     </div>
-                </form>
+                </form><br><br>
                               <a href="/auth/github">
-                                <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect">
-                                  <i class="material-icons">add</i>
+                                <h6 style="font-family: Roboto; color: #fff"><b>Continue com</b></h6>
+                                <button id="github" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" style="background-color: #fff; ">
+                                  <span style="font-size: 50px;">
+                                  <i class="fab fa-github"></i>
+                                </span>
+                                </button>
+                              </a>&nbsp;&nbsp;
+                              <a href="/auth/google">
+                                <button id="google" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" style="background-color: #fff; ">
+                                  <span style="font-size: 36px; color: #E74944;">
+                                  <i class="fab fa-google-plus-g"></i>
+                                </span>
+                                </button>
+                              </a>&nbsp;&nbsp;
+                              <a href="/auth/linkedin">
+                                <button id="linkedin" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect" style="background-color: #fff; ">
+                                  <span style="font-size: 34px; color: #007AB1;">
+                                  <i class="fab fa-linkedin-in"></i>
+                                </span>
                                 </button>
                               </a>
+
+                              <div class="mdl-tooltip" data-mdl-for="linkedin">
+                                Entre com LinkedIn
+                              </div>
+                              <div class="mdl-tooltip" data-mdl-for="github">
+                                Entre com GitHub
+                              </div>
+                              <div class="mdl-tooltip" data-mdl-for="google">
+                                Entre com Google
+                              </div>
       </div>
     </div>
     <!-- ===== 3 DIV ===== -->
