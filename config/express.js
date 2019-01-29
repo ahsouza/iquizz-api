@@ -26,7 +26,6 @@ let
 const fileStore = require('session-file-store')(expressSession),
 // ==== CONFIG ====
  opHelmet = require('./helmet.js'),
- strategy = require('./passport-strategy.js'),
  session = require('./session.js')
 
 module.exports = () => {

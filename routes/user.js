@@ -1,3 +1,5 @@
+const passport = require('passport')
+
 module.exports = (app) => {
   const
    userController = require('../controllers/user.js')
@@ -13,6 +15,9 @@ module.exports = (app) => {
   app.post('/api/edit', userController.editUser)
   app.post('/api/auth', userController.auth)
   app.post('/register', userController.registerMemberChat)
+
+  app.get('/auth/github', passport.authenticate('github'));
+  app.get('/auth/github/callback', passport.authenticate('github', { successRedirect: '/api/quiz'}))
 }
   // const isLoggedIn = (req, res, next) => {
   //    if(typeof(req.session.username) != 'undefined'){
