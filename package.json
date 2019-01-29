@@ -6,7 +6,7 @@
   "main": "server.js",
   "author": "@ahsouza <annibalhsouza@gmail.com>",
   "scripts": {
-     "paral": "node clusters"
+     "start": "node clusters"
   },
   "dependencies": {
     "@material/elevation": "^0.41.0",
