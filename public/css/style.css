@@ -152,7 +152,6 @@ header{
   transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 .btn-enter:hover {
-  top: -2px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.4);
 }
 
@@ -308,7 +307,35 @@ h1 {
   text-align: center;
   line-height: 135%;
 }
-
+#github {
+  background-color: #fff;
+}
+#github span {
+  font-size: 50px;
+}
+#google {
+  background-color: #fff;
+}
+#google span {
+  font-size: 36px; 
+  color: #E74944;
+}
+#linkedin {
+  background-color: #fff;
+}
+#linkedin span {
+  font-size: 34px; 
+  color: #007AB1;
+}
+#github:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+}
+#google:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+}
+#linkedin:hover {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+}
 .menu-button {
   -webkit-transition: 0.4s;
   -moz-transition: 0.4s;

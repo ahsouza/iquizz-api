@@ -3,4 +3,5 @@ require('./config/database.js')()
 require('./config/passport-strategy.js')()
 
 module.exports = app
-app.listen(process.env.PORT || 5000, () =>{ console.log('IQuizz API listening on port 5000!')})
+const PORT = process.env.PORT || 5000
+app.listen(PORT, () =>{ console.log(`IQuizz API listening on port ${PORT}!`)})
