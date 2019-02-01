@@ -8,7 +8,7 @@
   <body style="background-color: #03A9F4; ">
     <header>
       <button id="demo-menu-lower-left" class="mdl-button mdl-js-button mdl-button--icon">
-        <i class="material-icons">
+        <i class="material-icons" style="color: #fff;">
           more_vert
         </i>
       </button>
@@ -93,7 +93,7 @@
 }
 </style>
 
-<h4>Gênero Sexual</h4>
+<!-- <h4>Gênero Sexual</h4>
 <hr>
 
 
@@ -122,44 +122,54 @@
 
 </ul>
 
-  
-<h4>
+ -->
+
+
+
+
+
+
+
+
+
+
+
+
+<h4 id="location">
   <i class="material-icons">location_on</i>&nbsp;&nbsp;
   Localização
 </h4>
 <hr>
 
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+<div class="location-div" style="display: none;">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" name="cep" type="text" id="cep" pattern="[0-9]{8}" title="Digite o CEP com seus '8'dígitos númericos">
-      <label class="mdl-textfield__label" for="cep">CEP...</label>
+    <label class="mdl-textfield__label" for="cep">CEP...</label>
   </div>
 
-
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" name="logradouro" type="text" id="logradouro">
       <label class="mdl-textfield__label" for="logradouro">Logradouro...</label>
   </div>
 
-
-<div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" name="complemento" type="text" id="complemento">
-      <label class="mdl-textfield__label" for="complemento">Complemento...</label>
+    <label class="mdl-textfield__label" for="complemento">Complemento...</label>
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" name="numero" type="text" id="numero" pattern="[0-9]*" title="Digite o NÚMERO do local com dígitos númericos">
-      <label class="mdl-textfield__label" for="numero">Número...</label>
+    <label class="mdl-textfield__label" for="numero">Número...</label>
   </div>
-
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" type="text"  id="bairro" name="bairro" >
-      <label class="mdl-textfield__label" for="bairro">Bairro...</label>
+    <label class="mdl-textfield__label" for="bairro">Bairro...</label>
   </div>
 
   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
     <input class="mdl-textfield__input" type="text"  id="cidade" name="cidade" >
-      <label class="mdl-textfield__label" for="cidade">Cidade...</label>
+    <label class="mdl-textfield__label" for="cidade">Cidade...</label>
   </div>
   <br/>
   <label for="uf">Estado</label>
@@ -192,31 +202,76 @@
     <option value="SE">Sergipe</option>
     <option value="TO">Tocantins</option>
   </select>   
+</div>
 <br><br>
-  <div class="mdl-textfield mdl-js-textfield">
-    <input class="mdl-textfield__input" type="text" pattern="[0-9]*" id="phone">
-    <label class="mdl-textfield__label" for="phone">Telefone</label>
-    <span class="mdl-textfield__error">Somente Dígitos</span>
-  </div>
   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color: #8bc34a; margin-left: 50%" type="submit">
     <i class="material-icons">done</i>&nbsp;&nbsp;SALVAR
   </button>
 </div>
 </div>
-  <div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone">
-    <span style="font-size: 20px; color: black;">
-      <i class="fas fa-school"></i>
-    </span>&nbsp;&nbsp;&nbsp;
 
-    <% if (account.academics)  { %>          
-      <select id="academy" name="academy">
-        <option value='' selected>Seu Acadêmico</option>
-        <% for (account.academy of account.academics) { %>  
-        <option value='<%= account.academy.name %>'><%= account.academy.name %></option>
-     <% } %>
-       </select> 
+<div class="mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--4-col-phone" style="background-color: #fff; padding: 30px;">
+<h6>Gênero Sexual</h6>
+
+<ul class="demo-list-control mdl-list">
+  <li class="mdl-list__item">
+    <span class="mdl-list__item-primary-content">
+      Feminino
+    </span>
+    <span class="mdl-list__item-secondary-action">
+      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-2">
+        <input type="radio" id="list-option-2" class="mdl-radio__button" name="genre" value="feminino" checked />
+      </label>
+    </span>
+  </li>
+
+  <li class="mdl-list__item">
+    <span class="mdl-list__item-primary-content">
+      Masculino
+    </span>
+    <span class="mdl-list__item-secondary-action">
+      <label class="demo-list-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="list-option-1">
+        <input type="radio" id="list-option-1" class="mdl-radio__button" name="genre" value="masculino" checked />
+      </label>
+    </span>
+  </li>
+
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+  <span style="font-size: 20px; color: black;">
+    <i class="fas fa-school"></i>
+  </span>&nbsp;&nbsp;&nbsp;
+
+  <% if (account.academics)  { %>          
+    <select id="academy" name="academy">
+      <option value='' selected>Seu Acadêmico</option>
+      <% for (account.academy of account.academics) { %>  
+      <option value='<%= account.academy.name %>'><%= account.academy.name %></option>
       <% } %>
-  </div>
+    </select> 
+  <% } %>
+
+
+
+
+
+
+
+
+
+
+
+</div>
 </div>
 </form>
 
